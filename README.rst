@@ -16,15 +16,16 @@ GDB-ML
 
 GDB-ML contains all the utils for a GDB machine-learning-based project.
 
-<pre>├── AUTHORS.rst
+'''
+├── AUTHORS.rst
 ├── CODE_OF_CONDUCT.rst
 ├── CONTRIBUTING.rst
-├── <font color="#3465A4"><b>dist</b></font>
+├── dist
 │   ├── gdb_ml-0.1.0-py3-none-any.whl
-│   └── <font color="#CC0000"><b>gdb_ml-0.1.0.tar.gz</b></font>
-├── <font color="#3465A4"><b>docs</b></font>
+│   └── gdb_ml-0.1.0.tar.gz
+├── docs
 │   ├── authors.rst
-│   ├── <font color="#4E9A06"><b>conf.py</b></font>
+│   ├── conf.py
 │   ├── contributing.rst
 │   ├── history.rst
 │   ├── index.rst
@@ -41,21 +42,21 @@ GDB-ML contains all the utils for a GDB machine-learning-based project.
 ├── README.rst
 ├── requirements_dev.txt
 ├── ruff.toml
-├── <font color="#3465A4"><b>src</b></font>
-│   ├── <font color="#3465A4"><b>gdb_ml</b></font>
+├── src
+│   ├── gdb_ml
 │   │   ├── gdb_ml.py
 │   │   └── __init__.py
-│   └── <font color="#3465A4"><b>gdb_ml.egg-info</b></font>
+│   └── gdb_ml.egg-info
 │       ├── dependency_links.txt
 │       ├── PKG-INFO
 │       ├── requires.txt
 │       ├── SOURCES.txt
 │       └── top_level.txt
-├── <font color="#3465A4"><b>tests</b></font>
+├── tests
 │   ├── __init__.py
 │   └── test_gdb_ml.py
 └── tox.ini
-</pre>
+'''
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
