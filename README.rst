@@ -16,7 +16,7 @@ GDB-ML
 
 GDB-ML contains all the utils for a GDB machine-learning-based project.
 
-'''
+GDB-ML
 ├── AUTHORS.rst
 ├── CODE_OF_CONDUCT.rst
 ├── CONTRIBUTING.rst
@@ -56,7 +56,7 @@ GDB-ML contains all the utils for a GDB machine-learning-based project.
 │   ├── __init__.py
 │   └── test_gdb_ml.py
 └── tox.ini
-'''
+
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
