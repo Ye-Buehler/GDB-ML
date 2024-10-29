@@ -16,46 +16,47 @@ GDB-ML
 
 GDB-ML contains all the utils for a GDB machine-learning-based project.
 
-GDB-ML<br />
-├── AUTHORS.rst<br />
-├── CODE_OF_CONDUCT.rst<br />
-├── CONTRIBUTING.rst<br />
-├── dist<br />
-│   ├── gdb_ml-0.1.0-py3-none-any.whl<br />
-│   └── gdb_ml-0.1.0.tar.gz<br />
-├── docs<br />
-│   ├── authors.rst<br />
-│   ├── conf.py<br />
-│   ├── contributing.rst<br />
-│   ├── history.rst<br />
-│   ├── index.rst<br />
-│   ├── installation.rst<br />
-│   ├── make.bat<br />
-│   ├── Makefile<br />
-│   ├── readme.rst<br />
-│   └── usage.rst<br />
-├── HISTORY.rst<br />
-├── LICENSE<br />
-├── Makefile<br />
-├── MANIFEST.in<br />
-├── pyproject.toml<br />
-├── README.rst<br />
-├── requirements_dev.txt<br />
-├── ruff.toml<br />
-├── src<br />
-│   ├── gdb_ml<br />
-│   │   ├── gdb_ml.py<br />
-│   │   └── __init__.py<br />
-│   └── gdb_ml.egg-info<br />
-│       ├── dependency_links.txt<br />
-│       ├── PKG-INFO<br />
-│       ├── requires.txt<br />
-│       ├── SOURCES.txt<br />
-│       └── top_level.txt<br />
-├── tests<br />
-│   ├── __init__.py<br />
-│   └── test_gdb_ml.py<br />
-└── tox.ini<br />
+GDB-ML  
+├── AUTHORS.rst  
+├── CODE_OF_CONDUCT.rst  
+├── CONTRIBUTING.rst  
+├── dist
+│   ├── gdb_ml-0.1.0-py3-none-any.whl
+│   └── gdb_ml-0.1.0.tar.gz
+├── docs
+│   ├── authors.rst
+│   ├── conf.py
+│   ├── contributing.rst
+│   ├── history.rst
+│   ├── index.rst
+│   ├── installation.rst
+│   ├── make.bat
+│   ├── Makefile
+│   ├── readme.rst
+│   └── usage.rst
+├── HISTORY.rst
+├── LICENSE
+├── Makefile
+├── MANIFEST.in
+├── pyproject.toml
+├── README.rst
+├── requirements_dev.txt
+├── ruff.toml
+├── src
+│   ├── gdb_ml
+│   │   ├── gdb_ml.py
+│   │   └── __init__.py
+│   └── gdb_ml.egg-info
+│       ├── dependency_links.txt
+│       ├── PKG-INFO
+│       ├── requires.txt
+│       ├── SOURCES.txt
+│       └── top_level.txt
+├── tests
+│   ├── __init__.py
+│   └── test_gdb_ml.py
+└── tox.ini
+
 
 
 * Free software: MIT license
