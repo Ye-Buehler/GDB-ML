@@ -12,8 +12,8 @@ from .properties_calculator import PropertiesCalculator
 
 
 # When using <<from gdb_ml import * >> only the classes listed in __all__ will be imported.
-"""__all__ = [
+__all__ = [
     'DataProcessor',
     'ChemUtils',
     'PropertiesCalculator',
-]"""
+]
