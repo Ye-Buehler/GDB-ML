@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
 MOLS_PER_GRAPH = 10
 
 class GraphMapping:
