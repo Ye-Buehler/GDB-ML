@@ -1,11 +1,13 @@
 from rdkit import Chem
 
 class PropertiesCalculator:
-    def __init__(self, smiles):
-        self.smiles = smiles
+
+    def __init__(self):
+        # Initialize any instance variables here, if needed
+        pass
     
     # TODO: Compute the complexity score
-    def complexity_score(smiles):
+    def complexity_score(self, smiles):
         mol = Chem.MolFromSmiles(smiles)
         divalent_cyclic = 0
         divalent_acyclic = 0
