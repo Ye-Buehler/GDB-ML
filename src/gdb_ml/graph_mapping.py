@@ -43,13 +43,11 @@ class GraphMapping:
 
         df_val['Actual Number of Datapoints'] = ""
         df_val['Actual cumulated Datapoints'] = ""
-        # Add new column 'B' where values from 'A' are capped at 50
         df_val['Actual Number of Datapoints'] = np.where(df_val['Number of Values'] > MOLS_PER_GRAPH, MOLS_PER_GRAPH, df_val['Number of Values'])
         df_val['Actual cumulated Datapoints'] = df_val['Actual Number of Datapoints'].cumsum().astype(int)
 
         df_test['Actual Number of Datapoints'] = ""
         df_test['Actual cumulated Datapoints'] = ""
-        # Add new column 'B' where values from 'A' are capped at 50
         df_test['Actual Number of Datapoints'] = np.where(df_test['Number of Values'] > MOLS_PER_GRAPH, MOLS_PER_GRAPH, df_test['Number of Values'])
         df_test['Actual cumulated Datapoints'] = df_test['Actual Number of Datapoints'].cumsum().astype(int)
         
