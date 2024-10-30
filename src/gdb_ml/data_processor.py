@@ -19,7 +19,7 @@ class DataProcessor:
 
 
     # TODO: Load the data
-    def load_data(self, FILE_PATH_READ, file_type="csv"):
+    def load_data(self, FILE_PATH_READ, SEPRATOR, file_type="csv"):
         """Loads data from the specified file type"""
         if file_type == "csv":
             new_data = pd.read_csv(FILE_PATH_READ, names=COLUMN_NAME_INPUT, sep=SEPRATOR)
@@ -100,7 +100,7 @@ class DataProcessor:
 
 
     # TODO: Save the output file
-    def save_to_file(df, FILE_PATH_SAVE, sep='\t', header=False, index=False):
+    def save_to_file(self, df, FILE_PATH_SAVE):
         """
         Saves the DataFrame to a specified file.
 
@@ -115,7 +115,7 @@ class DataProcessor:
         None
         """
         try:
-            df.to_csv(FILE_PATH_SAVE, sep=sep, header=header, index=index)
+            df.to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
             print(f"File saved successfully to {FILE_PATH_SAVE}")
         except Exception as e:
             print(f"An error occurred while saving the file: {e}")
