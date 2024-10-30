@@ -53,7 +53,7 @@ class ChemUtils:
         #updated_smiles = updated_smiles.replace('o', 'C')
         updated_smiles = re.sub('\[.*?\]', 'C', updated_smiles)
         updated_smiles = re.sub('[A-Za-z]', 'C', updated_smiles)
-        updated_smiles = updated_smiles.replace.replace('-', '')
-        updated_smiles = updated_smiles.replace.replace('=', '')
-        character_based_smiles = updated_smiles.replace.replace('#', '')
+        updated_smiles = updated_smiles.replace('-', '')
+        updated_smiles = updated_smiles.replace('=', '')
+        character_based_smiles = updated_smiles.replace('#', '')
         return character_based_smiles
