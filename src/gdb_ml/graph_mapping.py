@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 MOLS_PER_GRAPH = 10
+TOTAL_DATAPOINTS = 2000000
 
 class GraphMapping:
 
@@ -11,7 +12,11 @@ class GraphMapping:
         pass
 
 
-    def datapoints_split(self, df, MOLS_PER_GRAPH):
+    def datapoints_split(self, df, TOTAL_DATAPOINTS, MOLS_PER_GRAPH):
+
+        df["Number of Datapoints"]= MOLS_PER_GRAPH
+        df['Accumulated Sum of Datapoints'] = df['Number of Datapoints'].cumsum().astype(int)
+        df = df[0:int(TOTAL_DATAPOINTS/MOLS_PER_GRAPH)]
 
         # Create a new column 'Set Assigned' with repeated values 'train', 'val', 'test'
         sets = ['train','train','train','train','train','train','train','train','train','train','train','train','train','train','train','train','train', 'val', 'val','test']
@@ -54,11 +59,4 @@ class GraphMapping:
         list_val = df_val['Key'].tolist()
         list_test = df_test['Key'].tolist()
 
-        return {
-            "train dataframe": df_train,
-            "val dataframe ": df_val,
-            "test dataframe": df_test,
-            "train graph list": list_train,
-            "val graph list": list_val,
-            "test graph list": list_test
-            }
+        return [df_train, df_val, df_test, list_train, list_val, list_test]

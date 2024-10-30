@@ -22,13 +22,28 @@ class DataProcessor:
     def load_data(self, FILE_PATH_READ, SEPRATOR, file_type="csv"):
         """Loads data from the specified file type"""
         if file_type == "csv":
-            new_data = pd.read_csv(FILE_PATH_READ, names=COLUMN_NAME_INPUT, sep=SEPRATOR)
+            # Read the file twice: once with header and once without
+            df_with_header = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR, nrows=1)
+            df_without_header = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR, header=None, nrows=1)
+
+            # Check if column names appear as data in the first row without headers
+            has_header = not df_with_header.columns.equals(df_without_header.iloc[0])
+
+            if has_header:
+                print("The file has a header row.")
+                new_data = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR)
+
+            else:
+                print("The file does not have a header row.")
+                new_data = pd.read_csv(FILE_PATH_READ, names=COLUMN_NAME_INPUT, sep=SEPRATOR)
+                
         elif file_type == "json":
             new_data = pd.read_json(FILE_PATH_READ)
         elif file_type == "excel":
             new_data = pd.read_excel(FILE_PATH_READ)
         else:
             raise ValueError("Unsupported file type. Supported types: csv, json, excel")
+        return new_data
 
 
     # TODO: Load the file with correct number of lines when it may contain bad lines
