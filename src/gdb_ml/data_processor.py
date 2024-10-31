@@ -1,10 +1,9 @@
 import pandas as pd
 import ast
 import re
+import os
 
 COLUMN_NAME_INPUT = ["SMILES"]
-COLUMN_NAME_OUTPUT = ["SMILES"]
-COLUMN_NAME_TREAT = ["SMILES"]
 SEPRATOR = '\t'
 FILE_PATH_READ = "file_path_read"
 FILE_PATH_SAVE = "file_path_save"
@@ -49,10 +48,7 @@ class DataProcessor:
 
 
     # TODO: Load the file with correct number of lines when it may contain bad lines
-    def load_file_with_badlines(self, FILE_PATH_READ):
-        valid_lines = []
-        total_lines = 0
-        bad_lines = 0
+    def load_file_with_badlines(self, FILE_PATH_READ, COLUMN_NAME_OUTPUT):
     
         # Read the file using Python's open function
         with open(FILE_PATH_READ, 'r') as f:
@@ -101,17 +97,7 @@ class DataProcessor:
     # TODO: Save the output file
     def save_to_file(self, df, FILE_PATH_SAVE):
         """
-        Saves the DataFrame to a specified file.
-
-        Parameters:
-        df (pd.DataFrame): The DataFrame to save.
-        file_path (str): Path where the file will be saved.
-        sep (str, optional): Separator for the output file. Default is '\t' (tab-separated).
-        header (bool, optional): If False, no header is written. Default is False.
-        index (bool, optional): If False, row indices are not written. Default is False.
-        
-        Returns:
-        None
+        Saves the DataFrame to a csv file.
         """
         try:
             df.to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
@@ -135,3 +121,27 @@ class DataProcessor:
         with open(FILE_PATH_READ, 'r') as file:
             list = [line.strip() for line in file]  # Remove any leading/trailing whitespace
         return list
+    
+
+    # TODO: append all the dataframes from a folder
+    def append_dfs_in_folder(self, FOLDER_PATH) -> pd.DataFrame:
+
+        iteration = 0
+        row_count = 0
+
+        for filename in os.listdir(FOLDER_PATH):
+            if filename.endswith(".txt"):
+                
+                iteration += 1
+                if iteration == 1:
+                    df = pd.read_csv(FOLDER_PATH + filename, sep='\t', names=COLUMN_NAME_INPUT)
+                    #print("basis lenght = " + str(len(df)))
+                    row_count += len(df)
+
+                if iteration != 1:
+                    df2 = pd.read_csv(FOLDER_PATH + filename, sep='\t',names=COLUMN_NAME_INPUT)
+                    #print("added lenght = " + str(len(df2)))
+                    df = pd.concat([df, df2], axis=0, ignore_index=True)
+
+        print("Total enteries that have been merged: \t" + str(row_count))
+        return df
