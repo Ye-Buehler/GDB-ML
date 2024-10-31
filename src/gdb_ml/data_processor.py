@@ -3,7 +3,7 @@ import ast
 import re
 
 COLUMN_NAME_INPUT = ["SMILES"]
-COLUMN_NAME_OUTPUT = ["Predicted SMILES"]
+COLUMN_NAME_OUTPUT = ["SMILES"]
 COLUMN_NAME_TREAT = ["SMILES"]
 SEPRATOR = '\t'
 FILE_PATH_READ = "file_path_read"
@@ -80,24 +80,6 @@ class DataProcessor:
         # Drop those rows and return the resulting DataFrame
         df_cleaned = df.drop(indices_to_remove)
         print(f"Removed {len(indices_to_remove)} rows containing dots from '{COLUMN_NAME_TREAT}' column.")
-        return df_cleaned
-
-
-    # TODO: Remove the duplicates
-    def remove_duplicates(df, COLUMN_NAME_TREAT, keep='last'):
-        """
-        Removes duplicate rows in the DataFrame.
-
-        Parameters:
-        keep (str, optional): Determines which duplicates (if any) to keep.
-                            'first' keeps the first occurrence, 'last' keeps the last.
-                            Default is 'last'.
-        Returns:
-        pd.DataFrame: A new DataFrame with duplicates removed.
-        """
-        # Drop duplicates based on the subset and keep specified rows
-        df_cleaned = df.drop_duplicates(subset=COLUMN_NAME_TREAT, keep=keep).reset_index(drop=True)
-        print(f"Removed duplicates based on columns: {COLUMN_NAME_TREAT}. Remaining rows: {len(df_cleaned)}")
         return df_cleaned
 
 
