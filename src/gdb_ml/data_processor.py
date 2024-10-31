@@ -19,23 +19,25 @@ class DataProcessor:
 
 
     # TODO: Load the data
-    def load_data(self, FILE_PATH_READ, SEPRATOR, file_type="csv"):
+    def load_data(self, FILE_PATH_READ, SEPRATOR='\t', file_type="csv", has_header=0, add_header=1):
         """Loads data from the specified file type"""
         if file_type == "csv":
             # Read the file twice: once with header and once without
             df_with_header = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR, nrows=1)
             df_without_header = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR, header=None, nrows=1)
 
-            # Check if column names appear as data in the first row without headers
-            has_header = not df_with_header.columns.equals(df_without_header.iloc[0])
-
-            if has_header:
+            if has_header==1:
                 print("The file has a header row.")
                 new_data = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR)
 
             else:
                 print("The file does not have a header row.")
-                new_data = pd.read_csv(FILE_PATH_READ, names=COLUMN_NAME_INPUT, sep=SEPRATOR)
+                if add_header==0:
+                    new_data = pd.read_csv(FILE_PATH_READ, sep=SEPRATOR)
+                    print("No header has been added.")
+                else:
+                    new_data = pd.read_csv(FILE_PATH_READ, names=COLUMN_NAME_INPUT, sep=SEPRATOR)
+                    print("A header has been added.")
                 
         elif file_type == "json":
             new_data = pd.read_json(FILE_PATH_READ)
@@ -134,3 +136,20 @@ class DataProcessor:
             print(f"File saved successfully to {FILE_PATH_SAVE}")
         except Exception as e:
             print(f"An error occurred while saving the file: {e}")
+
+
+    # TODO: Save a list into a txt file
+    def save_list(self, list, FILE_PATH_SAVE):
+        # Write the list to a text file, each element on a new line
+        with open(FILE_PATH_SAVE, 'w') as file:
+            for item in list:
+                file.write(f"{item}\n")
+        print(f"File saved successfully to {FILE_PATH_SAVE}")
+
+
+    # TODO: Read a list from a txt file
+    def read_list(self, FILE_PATH_READ):
+        # Reading the list from a text file (line by line)
+        with open(FILE_PATH_READ, 'r') as file:
+            list = [line.strip() for line in file]  # Remove any leading/trailing whitespace
+        return list
