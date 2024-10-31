@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import json
+import os
 
 MOLS_PER_GRAPH = 10
 TOTAL_DATAPOINTS = 2000000
@@ -11,7 +13,7 @@ class GraphMapping:
         # Initialize any instance variables here, if needed
         pass
 
-
+    # TODO: Split the datapoints into three sets
     def datapoints_split(self, df, TOTAL_DATAPOINTS, MOLS_PER_GRAPH):
 
         df["Number of Datapoints"]= MOLS_PER_GRAPH
@@ -60,3 +62,46 @@ class GraphMapping:
         list_test = df_test['Key'].tolist()
 
         return [df_train, df_val, df_test, list_train, list_val, list_test]
+
+    
+    # TODO: Split the datapoints into three sets
+    def check_mols_from_graph(self, keys_to_merge, FOLDER_PATH, MOLS_PER_GRAPH):
+
+        merged_dict = {key: [] for key in keys_to_merge}
+        dicts = []
+
+        for filename in os.listdir(FOLDER_PATH):
+            with open(FOLDER_PATH + filename, 'r') as file:
+                loaded_dict = json.load(file)
+                dicts.append(loaded_dict)
+
+        for d in dicts:
+            for key, value in d.items():
+                if key in merged_dict:
+                    # If key already exists, append the new value to the list
+                    merged_dict[key].append(value)
+                else:
+                    # If key doesn't exist, add it with its value
+                    merged_dict[key] = value       
+
+        # Flatten the lists for each key in merged_values
+        flattened_values = {key: [item for sublist in merged_dict[key] for item in sublist] for key in merged_dict}
+        flattened_values
+
+        # Truncate the values in the dictionary
+        truncated_dict = {key: values[:MOLS_PER_GRAPH] for key, values in flattened_values.items()}
+        truncated_dict
+
+        # Initialize variables to keep track of the accumulated sum
+        accumulated_sum = 0
+
+        # Get the number of unique keys
+        num_unique_keys = len(truncated_dict)
+
+        # Iterate through the dictionary to count values and compute the accumulated sum
+        for key, value in truncated_dict.items():
+            num_values = len(value)  # Number of values for the current key
+            accumulated_sum += num_values  # Add to the accumulated sum
+            print(f"Key: {key}, Number of Values: {num_values}, Accumulated Sum: {accumulated_sum}")     
+        print(f"Number of Unique Keys: {num_unique_keys}")
+        return truncated_dict
