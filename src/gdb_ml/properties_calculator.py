@@ -68,3 +68,21 @@ class PropertiesCalculator:
             d3 = int(number_of_ring)
 
         return (d1, d2, d3)
+
+
+    # TODO: Compute the matric validity
+    def validity(self, df):
+
+        #to check SMILES validity with handling for NaN and non-string values
+        def is_valid_smiles(smiles):
+            if isinstance(smiles, str):  # Ensure the entry is a string
+                mol = Chem.MolFromSmiles(smiles)
+                return mol is not None
+            return False
+
+        # Apply the function to check validity
+        df['Is_Valid'] = df['SMILES'].apply(is_valid_smiles)
+        # Assuming 'column_name' is the name of the column you want to check
+        true_percentage = (df['Is_Valid'].sum() / len(df)) * 100
+        print(f"Percentage of valid SMILES: {true_percentage:.2f}%")
+        return df
