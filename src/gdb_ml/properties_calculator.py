@@ -1,4 +1,5 @@
 from rdkit import Chem
+import pandas as pd
 
 class PropertiesCalculator:
 
@@ -70,19 +71,50 @@ class PropertiesCalculator:
         return (d1, d2, d3)
 
 
-    # TODO: Compute the matric validity
+    # TODO: Compute the metric validity and canonicalize the SMILES
     def validity(self, df):
 
         #to check SMILES validity with handling for NaN and non-string values
         def is_valid_smiles(smiles):
             if isinstance(smiles, str):  # Ensure the entry is a string
-                mol = Chem.MolFromSmiles(smiles)
-                return mol is not None
+                try:
+                    mol = Chem.MolFromSmiles(smiles)
+                    canonical_smiles = Chem.MolToSmiles(mol, canonical=True)
+                    return canonical_smiles
+                except: 
+                    return False
             return False
-
-        # Apply the function to check validity
+        
         df['Is_Valid'] = df['SMILES'].apply(is_valid_smiles)
-        # Assuming 'column_name' is the name of the column you want to check
-        true_percentage = (df['Is_Valid'].sum() / len(df)) * 100
-        print(f"Percentage of valid SMILES: {true_percentage:.2f}%")
-        return df
+        false_count = (~df['Is_Valid'].astype(bool)).sum()
+
+        true_percentage = (len(df)-false_count) / len(df) * 100
+        df_valid = df[df['Is_Valid'].astype(bool)].reset_index(drop=True)
+
+        return true_percentage, df_valid
+    
+
+    # TODO: Compute the metric uniqueness
+    def uniqueness(self, df):
+        # Get unique rows in the DataFrame
+        df_unique = df[['SMILES']].drop_duplicates().reset_index(drop=True)
+
+        uniqueness = df_unique.shape[0]
+        return uniqueness, df_unique
+
+
+    # TODO: Compute the metric novelty
+    def novelty(self, df_unique, df_train):
+        # Perform an anti-join to get rows in df_unqiue that are not in df_train
+        df_novel = pd.merge(df_unique, df_train, how='left', indicator=True).query('_merge == "left_only"').drop('_merge', axis=1)
+
+        novelty = df_novel.shape[0]
+        return novelty, df_novel
+
+
+    # TODO: Compute the metric presence
+    def presence(self, df_unique, all_mols_list):
+        # Count the occurrences of values in df_unqiue that are in all_mols_list
+        presence = df_unique['SMILES'][df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
+        presence_count = df_unique['SMILES'].isin(all_mols_list).sum()
+        return presence_count, presence
