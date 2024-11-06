@@ -3,7 +3,6 @@ import ast
 import re
 import os
 
-SEPRATOR = '\t'
 FILE_PATH_READ = "file_path_read"
 FILE_PATH_SAVE = "file_path_save"
 
@@ -123,7 +122,7 @@ class DataProcessor:
     
 
     # TODO: append all the dataframes from a folder
-    def append_dfs_in_folder(self, FOLDER_PATH) -> pd.DataFrame:
+    def append_dfs_in_folder(self, FOLDER_PATH, COLUMN_NAME_INPUT) -> pd.DataFrame:
 
         iteration = 0
         row_count = 0
