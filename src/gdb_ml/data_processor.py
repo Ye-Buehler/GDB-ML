@@ -3,7 +3,6 @@ import ast
 import re
 import os
 
-COLUMN_NAME_INPUT = ["SMILES"]
 SEPRATOR = '\t'
 FILE_PATH_READ = "file_path_read"
 FILE_PATH_SAVE = "file_path_save"
@@ -18,7 +17,7 @@ class DataProcessor:
 
 
     # TODO: Load the data
-    def load_data(self, FILE_PATH_READ, SEPRATOR='\t', file_type="csv", has_header=0, add_header=1):
+    def load_data(self, FILE_PATH_READ, SEPRATOR='\t', file_type="csv", has_header=0, add_header=1, COLUMN_NAME_INPUT= ["SMILES"]):
         """Loads data from the specified file type"""
         if file_type == "csv":
             # Read the file twice: once with header and once without
