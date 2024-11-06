@@ -142,6 +142,7 @@ class DataProcessor:
                     df2 = pd.read_csv(FOLDER_PATH + filename, sep='\t',names=COLUMN_NAME_INPUT)
                     #print("added lenght = " + str(len(df2)))
                     df = pd.concat([df, df2], axis=0, ignore_index=True)
+                    row_count += len(df2)
 
         print("Total enteries that have been merged: \t" + str(row_count))
         return df
