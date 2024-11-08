@@ -118,3 +118,11 @@ class PropertiesCalculator:
         presence = df_unique['SMILES'][df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
         presence_count = df_unique['SMILES'].isin(all_mols_list).sum()
         return presence_count, presence
+    
+
+    # TODO: To check the ones not in GDB13s but still valid
+    def non_presence(self, df_unique, all_mols_list):
+        # Find entries in df_unique that are NOT in all_mols_list
+        non_presence = df_unique['SMILES'][~df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
+        non_presence_count = (~df_unique['SMILES'].isin(all_mols_list)).sum()
+        return non_presence_count, non_presence
