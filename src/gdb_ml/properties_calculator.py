@@ -126,3 +126,11 @@ class PropertiesCalculator:
         non_presence = df_unique['SMILES'][~df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
         non_presence_count = (~df_unique['SMILES'].isin(all_mols_list)).sum()
         return non_presence_count, non_presence
+    
+
+    # TODO: HAC calculation
+    def hac(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        size = mol.GetNumHeavyAtoms()
+
+        return size
