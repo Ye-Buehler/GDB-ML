@@ -1,4 +1,5 @@
 from rdkit import Chem
+from rdkit.Chem import Descriptors
 import pandas as pd
 
 class PropertiesCalculator:
@@ -134,3 +135,11 @@ class PropertiesCalculator:
         size = mol.GetNumHeavyAtoms()
 
         return size
+    
+
+    # TODO: AlogP calculation
+    def alogp(self, smiles):
+        molecule = Chem.MolFromSmiles(smiles)
+        alogp = Descriptors.MolLogP(molecule)
+
+        return alogp
