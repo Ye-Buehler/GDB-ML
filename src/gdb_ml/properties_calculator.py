@@ -101,7 +101,7 @@ class PropertiesCalculator:
     # TODO: Compute the metric uniqueness
     def uniqueness(self, df):
         # Get unique rows in the DataFrame
-        df_unique = df[['SMILES']].drop_duplicates().reset_index(drop=True)
+        df_unique = df.drop_duplicates(subset=['SMILES']).reset_index(drop=True)
 
         uniqueness = df_unique.shape[0]
         return uniqueness, df_unique
@@ -119,7 +119,7 @@ class PropertiesCalculator:
     # TODO: Compute the metric presence
     def presence(self, df_unique, all_mols_list):
         # Count the occurrences of values in df_unqiue that are in all_mols_list
-        presence = df_unique['SMILES'][df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
+        presence = df_unique[df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
         presence_count = df_unique['SMILES'].isin(all_mols_list).sum()
         return presence_count, presence
     
@@ -127,7 +127,7 @@ class PropertiesCalculator:
     # TODO: To check the ones not in GDB13s but still valid
     def non_presence(self, df_unique, all_mols_list):
         # Find entries in df_unique that are NOT in all_mols_list
-        non_presence = df_unique['SMILES'][~df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
+        non_presence = df_unique[~df_unique['SMILES'].isin(all_mols_list)].reset_index(drop=True)
         non_presence_count = (~df_unique['SMILES'].isin(all_mols_list)).sum()
         return non_presence_count, non_presence
     
