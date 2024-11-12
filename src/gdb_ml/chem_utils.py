@@ -1,4 +1,5 @@
 from rdkit import Chem
+import random
 import re
 
 class ChemUtils:
@@ -57,3 +58,23 @@ class ChemUtils:
         updated_smiles = updated_smiles.replace('=', '')
         character_based_smiles = updated_smiles.replace('#', '')
         return character_based_smiles
+    
+    # TODO: Ramdomize the SMILES
+    def smiles_randomization(self, smiles):
+
+        # Function to generate unique randomized SMILES
+        def generate_randomized_smiles(smiles, num_randomizations=1):
+            molecule = Chem.MolFromSmiles(smiles)
+            if molecule is None:
+                return None
+            randomized_smiles = {Chem.MolToSmiles(molecule, doRandom=True) for _ in range(num_randomizations)}
+            return randomized_smiles
+
+        # Generate and count unique randomized SMILES
+        unique_smiles_set = generate_randomized_smiles(smiles, num_randomizations=100)
+        # print("Number of unique randomized SMILES:", len(unique_smiles_set))
+        # print("Unique randomized SMILES:", unique_smiles_set)
+        # Randomly pick one element
+        random_one_smiles = random.choice(list(unique_smiles_set))
+
+        return random_one_smiles 
