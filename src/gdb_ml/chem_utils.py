@@ -59,6 +59,7 @@ class ChemUtils:
         character_based_smiles = updated_smiles.replace('#', '')
         return character_based_smiles
     
+    
     # TODO: Ramdomize the SMILES
     def smiles_randomization(self, smiles):
 
