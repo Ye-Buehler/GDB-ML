@@ -1,4 +1,5 @@
 import pandas as pd
+from rdkit import Chem
 import ast
 import re
 import os
@@ -40,8 +41,18 @@ class DataProcessor:
             new_data = pd.read_json(FILE_PATH_READ)
         elif file_type == "excel":
             new_data = pd.read_excel(FILE_PATH_READ)
+        elif file_type == "sdf":
+            # Load the molecules from the SDF file
+            suppl = Chem.SDMolSupplier(FILE_PATH_READ)
+            # Extract properties into a DataFrame
+            data = []
+            for mol in suppl:
+                if mol is not None:
+                    props = mol.GetPropsAsDict()
+                    data.append(props)
+            new_data = pd.DataFrame(data)
         else:
-            raise ValueError("Unsupported file type. Supported types: csv, json, excel")
+            raise ValueError("Unsupported file type. Supported types: csv, json, excel, sdf")
         return new_data
 
 
