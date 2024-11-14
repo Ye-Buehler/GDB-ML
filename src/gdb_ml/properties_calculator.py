@@ -146,3 +146,22 @@ class PropertiesCalculator:
         alogp = Descriptors.MolLogP(molecule)
 
         return alogp
+    
+
+    # TODO: Calculate the FDV
+    def divalent_nodes_fraction(self, smiles):
+        mol=Chem.MolFromSmiles(smiles)
+        atom_number = 0
+        divalent_node = 0
+        
+        for atom in mol.GetAtoms():
+            atom_number += 1
+            degree = atom.GetDegree()
+
+            if degree == 2:
+                divalent_node += 1 
+            else:
+                continue
+
+        divalent_ratio = round(divalent_node/atom_number,2)
+        return divalent_ratio
