@@ -91,8 +91,9 @@ class PropertiesCalculator:
 
         true_percentage = (len(df)-false_count) / len(df) * 100
         df_valid = df[df['Is_Valid'].astype(bool)].reset_index(drop=True)
+
+        df_valid = pd.DataFrame({'SMILES': df_valid['Is_Valid'], 'Log Probs': df_valid['Log Probs']})
         
-        df_valid = pd.DataFrame({'SMILES': df_valid['Is_Valid'], 'Log Probs': df['Log Probs']})
         df_valid = df_valid.dropna(subset=['SMILES']).reset_index(drop=True)
 
         return true_percentage, df_valid
