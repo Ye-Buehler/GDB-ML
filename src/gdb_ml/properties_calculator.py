@@ -1,5 +1,11 @@
 from rdkit import Chem
 from rdkit.Chem import Descriptors
+from rdkit.Chem import RDConfig
+import os
+import sys
+sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
+# now you can import sascore!
+import sascorer
 import pandas as pd
 
 class PropertiesCalculator:
@@ -166,3 +172,10 @@ class PropertiesCalculator:
 
         divalent_ratio = round(divalent_node/atom_number,2)
         return divalent_ratio
+    
+
+    # TODO: Calculate the SAS
+    def sascore(self, smiles):
+        mol=Chem.MolFromSmiles(smiles)
+        sas_score = sascorer.calculateScore(mol)
+        return as_score
