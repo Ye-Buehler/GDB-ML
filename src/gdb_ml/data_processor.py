@@ -133,7 +133,7 @@ class DataProcessor:
     
 
     # TODO: append all the dataframes from a folder
-    def append_dfs_in_folder(self, FOLDER_PATH, COLUMN_NAME_INPUT) -> pd.DataFrame:
+    def append_dfs_in_folder(self, FOLDER_PATH, COLUMN_NAME_INPUT, SEPRATOR='\t') -> pd.DataFrame:
 
         iteration = 0
         row_count = 0
@@ -143,12 +143,12 @@ class DataProcessor:
                 
                 iteration += 1
                 if iteration == 1:
-                    df = pd.read_csv(FOLDER_PATH + filename, sep='\t', names=COLUMN_NAME_INPUT)
+                    df = pd.read_csv(FOLDER_PATH + filename, sep=SEPRATOR, names=COLUMN_NAME_INPUT)
                     #print("basis lenght = " + str(len(df)))
                     row_count += len(df)
 
                 if iteration != 1:
-                    df2 = pd.read_csv(FOLDER_PATH + filename, sep='\t',names=COLUMN_NAME_INPUT)
+                    df2 = pd.read_csv(FOLDER_PATH + filename, sep=SEPRATOR,names=COLUMN_NAME_INPUT)
                     #print("added lenght = " + str(len(df2)))
                     df = pd.concat([df, df2], axis=0, ignore_index=True)
                     row_count += len(df2)
