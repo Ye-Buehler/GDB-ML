@@ -178,4 +178,4 @@ class PropertiesCalculator:
     def sascore(self, smiles):
         mol=Chem.MolFromSmiles(smiles)
         sas_score = sascorer.calculateScore(mol)
-        return as_score
+        return sas_score
