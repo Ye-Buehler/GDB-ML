@@ -2,7 +2,9 @@ import pandas as pd
 from rdkit import Chem
 import ast
 import re
+import sys
 import os
+from tqdm import tqdm
 
 FILE_PATH_READ = "file_path_read"
 FILE_PATH_SAVE = "file_path_save"
@@ -155,3 +157,50 @@ class DataProcessor:
 
         print("Total enteries that have been merged: \t" + str(row_count))
         return df
+    
+
+    # TODO: detokenize the files and append the log prob
+    def detokenize_append_log_prob(self, FILE_PATH_READ_1, FILE_PATH_READ_2, FILE_PATH_SAVE):
+        # TODO: Compute the metric validity and canonicalize the SMILES
+        def validity(df):
+
+            #to check SMILES validity with handling for NaN and non-string values
+            def is_valid_smiles(smiles):
+                if isinstance(smiles, str):  # Ensure the entry is a string
+                    try:
+                        mol = Chem.MolFromSmiles(smiles)
+                        canonical_smiles = Chem.MolToSmiles(mol, canonical=True)
+                        return canonical_smiles
+                    except: 
+                        return False
+                return False    
+            df['Is_Valid'] = df['SMILES'].apply(is_valid_smiles)
+            false_count = (~df['Is_Valid'].astype(bool)).sum()
+
+            true_percentage = (len(df)-false_count) / len(df) * 100
+            df_valid = df[df['Is_Valid'].astype(bool)].reset_index(drop=True)
+
+            df_valid = pd.DataFrame({'SMILES': df_valid['Is_Valid'], 'Log Probs': df_valid['Log Probs']})
+            
+            df_valid = df_valid.dropna(subset=['SMILES']).reset_index(drop=True)
+            return true_percentage, df_valid
+        
+        COLUMN_NAME_OUTPUT = ["SMILES"]
+        df = self.load_file_with_badlines(FILE_PATH_READ_1, COLUMN_NAME_OUTPUT)
+        df['Detokenized']=""
+        count = 0
+        my_list_invaild = []
+        for q in tqdm(range(0, len(df)), desc = 'Loop 1'):
+            try:  
+                tokens_string = df['SMILES'][q]
+                detokenized_string = self.detokenize_smiles(tokens_string)
+                df.loc[q,'Detokenized'] = detokenized_string 
+            except:
+                count += 1
+                my_list_invaild.append(q)
+                continue
+        df_cs = self.load_data(FILE_PATH_READ_2, COLUMN_NAME_INPUT=['log prob'])
+        df = pd.DataFrame({'SMILES': df['Detokenized'], 'Log Probs': df_cs['log prob']})
+        validity, df_valid = validity(df)
+        self.save_to_file(df_valid, FILE_PATH_SAVE)
+        return validity, df_valid
