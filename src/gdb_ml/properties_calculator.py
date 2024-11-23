@@ -185,7 +185,7 @@ class PropertiesCalculator:
 
 
     # TODO: filtration - max 3 rings
-    def threeringcheck(smiles):
+    def threeringcheck(self, smiles):
         number_of_ring = 0
         for s in smiles:
             count_ring_indices = 0
@@ -220,7 +220,7 @@ class PropertiesCalculator:
 
 
     # TODO: filtration - no atom in 3 rings
-    def has_atom_in_three_rings(smiles):
+    def has_atom_in_three_rings(self, smiles):
         mol = pybel.readstring("smi", smiles)
 
         # Perform ring perception
@@ -252,3 +252,29 @@ class PropertiesCalculator:
                 return True
 
         return False
+
+
+    # TODO: filtration - has 3 or 4 membered rings
+    def has_small_rings(self, smiles):
+        mol = pybel.readstring("smi", smiles)
+
+        # Perform ring perception
+        mol.OBMol.AddHydrogens()
+        mol.OBMol.PerceiveBondOrders()
+
+        # Get the number of rings and their sizes
+        small_ring_list = []
+        for ring in mol.OBMol.GetSSSR():
+            # Check if the ring has not more than 4 atoms (small ring)
+            if len(ring._path) <= 4:
+                small_ring_list.append(ring)
+        
+        # Check if the list is empty
+        if not small_ring_list:
+            print("The small_ring_list is empty.")
+            return False
+
+        else:
+            print("The small_ring_list  is not empty.")
+            return True
+
