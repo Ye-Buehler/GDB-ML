@@ -179,3 +179,38 @@ class PropertiesCalculator:
         mol=Chem.MolFromSmiles(smiles)
         sas_score = sascorer.calculateScore(mol)
         return sas_score
+
+
+    # TODO: filtration - max 3 rings
+    def threeringcheck(smiles):
+        number_of_ring = 0
+        for s in smiles:
+            count_ring_indices = 0
+            in_brackets = False
+            two_digit_idx = False
+            idx = ''
+            for char in s:
+                if char == '[':
+                    in_brackets = True
+                elif char == ']':
+                    in_brackets = False
+                elif char == '%':
+                    two_digit_idx = True
+                elif not in_brackets and char.isdigit():
+                    if two_digit_idx:
+                        if len(idx) == 0:
+                            idx += char
+                        elif len(idx) >= 1:
+                            count_ring_indices += 1
+                            idx = ''
+                            two_digit_idx = False
+                    else:
+                        count_ring_indices += 1
+                
+            ring_part = count_ring_indices / 2
+            number_of_ring = number_of_ring + ring_part
+            
+        if number_of_ring <= 3:
+            return smiles
+        else:
+            return None
