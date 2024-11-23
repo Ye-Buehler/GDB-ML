@@ -7,6 +7,9 @@ sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
 # now you can import sascore!
 import sascorer
 import pandas as pd
+import openbabel as ob
+from openbabel import pybel
+
 
 class PropertiesCalculator:
 
@@ -214,3 +217,38 @@ class PropertiesCalculator:
             return smiles
         else:
             return None
+
+
+    # TODO: filtration - no atom in 3 rings
+    def has_atom_in_three_rings(smiles):
+        mol = pybel.readstring("smi", smiles)
+
+        # Perform ring perception
+        mol.OBMol.AddHydrogens()
+        mol.OBMol.PerceiveBondOrders()
+
+        # Get the number of rings and their sizes
+        ring_list = []
+        for ring in mol.OBMol.GetSSSR():
+            #print(ring)
+            ring_list.append(ring)
+
+        # Print the ring sizes
+        #print("Ring list:", ring_list)
+
+        atom_ring_count = {}
+        # Iterate over the rings
+        for ring in ring_list:
+            # Iterate over the atoms in the ring
+            for atom_idx in ring._path:
+                if atom_idx in atom_ring_count:
+                    atom_ring_count[atom_idx] += 1
+                else:
+                    atom_ring_count[atom_idx] = 1
+        atom_ring_count
+
+        for atom, ring_count in atom_ring_count.items():
+            if ring_count >= 3:
+                return True
+
+        return False
