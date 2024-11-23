@@ -214,9 +214,9 @@ class PropertiesCalculator:
             number_of_ring = number_of_ring + ring_part
             
         if number_of_ring <= 3:
-            return smiles
+            return True
         else:
-            return None
+            return False
 
 
     # TODO: filtration - no atom in 3 rings
