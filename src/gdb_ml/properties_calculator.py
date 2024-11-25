@@ -271,10 +271,10 @@ class PropertiesCalculator:
         
         # Check if the list is empty
         if not small_ring_list:
-            print("The small_ring_list is empty.")
+            #print("The small_ring_list is empty.")
             return False
 
         else:
-            print("The small_ring_list  is not empty.")
+            #print("The small_ring_list  is not empty.")
             return True
 
