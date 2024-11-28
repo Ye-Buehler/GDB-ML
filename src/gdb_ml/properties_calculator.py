@@ -353,3 +353,31 @@ class PropertiesCalculator:
             return True
         except:
             return False
+        
+
+    # TODO: filtration - non-aromatic double bond filter
+    def non_aromatic_double_bond_filter(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        for bond in mol.GetBonds():
+            bondtype = bond.GetBondType()
+            if bondtype == 2: # aromatic bond cannot be 2
+                print("It is a double bond")
+                mol_begin=bond.GetBeginAtomIdx()
+                mol_end=bond.GetEndAtomIdx()
+                bond_a=mol.GetAtomWithIdx(mol_begin).GetSymbol()
+                bond_b=mol.GetAtomWithIdx(mol_end).GetSymbol()
+                #print(bond_a)
+                #print(bond_b)
+                if bond_a.lower() == 'c' and bond_b.lower() == 'o':
+                    #print('find a desired one with C=O bond!')
+                    continue
+                elif bond_a.lower() == 'o' and bond_b.lower() == 'c':
+                    #print('find a desired one with O=C bond!')
+                    continue
+                else:
+                    #print("find a undesired one with", bond_a, bond_b)
+                    return False
+            else:
+                #print('find a desired one!')
+                continue
+        return True
