@@ -288,7 +288,7 @@ class PropertiesCalculator:
                     return False
             return True
         
-        mol=Chem.MolFromSmiles(smiles)
+        mol = Chem.MolFromSmiles(smiles)
 
         for bond in mol.GetBonds():
             if bond.IsInRing() == True:
@@ -314,13 +314,12 @@ class PropertiesCalculator:
                     elif symbol1 == 'N' and symbol2 == 'N':
                         print ('find a NN', symbol1, symbol2)
                         return True
-
         return False
     
 
     # TODO: filtration - has N in three rings
-    def if_contain_N3ring(smiles):
-        mol=Chem.MolFromSmiles(smiles)
+    def if_contain_N3ring(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
         ringinfo = mol.GetRingInfo()
         for ring in ringinfo.AtomRings():
             if len(ring) == 3:
@@ -338,3 +337,19 @@ class PropertiesCalculator:
                 if 'N' in three_member_ring:
                     return True
         return False
+    
+
+    # TODO: filtration - has N in three rings
+    def if_contain_OCO(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        patt = Chem.MolFromSmarts('OCO')
+        try:
+            hit_ats = list(mol.GetSubstructMatch(patt))
+            hit_bonds = []
+            for bond in patt.GetBonds():
+                aid1 = hit_ats[bond.GetBeginAtomIdx()]
+                aid2 = hit_ats[bond.GetEndAtomIdx()]
+            hit_bonds.append(mol.GetBondBetweenAtoms(aid1,aid2).GetIdx())
+            return True
+        except:
+            return False
