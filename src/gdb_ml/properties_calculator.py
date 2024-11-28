@@ -277,7 +277,6 @@ class PropertiesCalculator:
         else:
             #print("The small_ring_list  is not empty.")
             return True
-
     
     
     # TODO: filtration - has NO or NN in non-aromatic rings
@@ -316,4 +315,26 @@ class PropertiesCalculator:
                         print ('find a NN', symbol1, symbol2)
                         return True
 
+        return False
+    
+
+    # TODO: filtration - has N in three rings
+    def if_contain_N3ring(smiles):
+        mol=Chem.MolFromSmiles(smiles)
+        ringinfo = mol.GetRingInfo()
+        for ring in ringinfo.AtomRings():
+            if len(ring) == 3:
+                #print(ring)
+                idx1 = ring[0]
+                idx2 = ring[1]
+                idx3 = ring[2]
+                #print(idx1,idx2,idx3)
+
+                atom1=mol.GetAtomWithIdx(idx1).GetSymbol()
+                atom2=mol.GetAtomWithIdx(idx2).GetSymbol()
+                atom3=mol.GetAtomWithIdx(idx3).GetSymbol()
+                three_member_ring = atom1, atom2, atom3
+                #print(three_member_ring)
+                if 'N' in three_member_ring:
+                    return True
         return False
