@@ -278,3 +278,42 @@ class PropertiesCalculator:
             #print("The small_ring_list  is not empty.")
             return True
 
+    
+    
+    # TODO: filtration - has NO or NN in non-aromatic rings
+    def if_NO_NN_in_non_aromatic_ring(self, smiles):
+
+        def isRingAromatic(m, bondRing):
+            for id in bondRing:
+                if not m.GetBondWithIdx(id).GetIsAromatic():
+                    return False
+            return True
+        
+        mol=Chem.MolFromSmiles(smiles)
+
+        for bond in mol.GetBonds():
+            if bond.IsInRing() == True:
+                atom1_idx = bond.GetBeginAtomIdx()
+                atom2_idx = bond.GetEndAtomIdx()
+
+                atom1 = mol.GetAtomWithIdx(atom1_idx)
+                atom2 = mol.GetAtomWithIdx(atom2_idx)
+                symbol1 = atom1.GetSymbol()
+                symbol2 = atom2.GetSymbol()
+                
+                if atom1.GetIsAromatic() == False or atom2.GetIsAromatic() == False:
+                    print(symbol1, symbol2)
+                    
+                    if symbol1 == 'N' and symbol2 == 'O':
+                        print ('find a NO', symbol1, symbol2)
+                        return True
+
+                    elif symbol1 == 'O' and symbol2 == 'N':
+                        print ('find a ON', symbol1, symbol2)
+                        return True
+
+                    elif symbol1 == 'N' and symbol2 == 'N':
+                        print ('find a NN', symbol1, symbol2)
+                        return True
+
+        return False
