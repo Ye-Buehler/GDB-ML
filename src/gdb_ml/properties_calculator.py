@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Descriptors
+from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDConfig
 from rdkit.Chem import QED
 from rdkit.Chem.Descriptors import qed
@@ -390,3 +391,49 @@ class PropertiesCalculator:
         mol = Chem.MolFromSmiles(smiles)
         qed = QED.qed(mol)
         return qed
+
+
+    # TODO: Fsp3 calculation
+    def fsp3(self, smiles):
+        """
+        Calculate the Fsp³ (fraction of sp³-hybridized carbons) for a given molecule.
+        
+        Parameters:
+        - smiles (str): SMILES representation of the molecule.
+        
+        Returns:
+        - fsp3 (float): Fraction of sp³-hybridized carbons in the molecule.
+        """
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            raise ValueError("Invalid SMILES string")
+        
+        # Calculate Fsp3 using RDKit's built-in function
+        return rdMolDescriptors.CalcFractionCSP3(mol)
+
+
+    # TODO: Fraction C-atoms calculation
+    def fraction_c(self, smiles):
+        """
+        Calculate the fraction of carbon atoms in a molecule.
+        
+        Parameters:
+        - smiles (str): SMILES representation of the molecule.
+        
+        Returns:
+        - fraction_c (float): Fraction of carbon atoms in the molecule.
+        """
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            raise ValueError("Invalid SMILES string")
+        
+        total_atoms = mol.GetNumAtoms()
+        if total_atoms == 0:
+            return 0.0
+        
+        # Count the number of carbon atoms
+        carbon_atoms = sum(1 for atom in mol.GetAtoms() if atom.GetAtomicNum() == 6)
+        
+        # Calculate fraction of carbon atoms
+        return carbon_atoms / total_atoms
+
