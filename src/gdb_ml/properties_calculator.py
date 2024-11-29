@@ -301,18 +301,18 @@ class PropertiesCalculator:
                 symbol2 = atom2.GetSymbol()
                 
                 if atom1.GetIsAromatic() == False or atom2.GetIsAromatic() == False:
-                    print(symbol1, symbol2)
+                    #print(symbol1, symbol2)
                     
                     if symbol1 == 'N' and symbol2 == 'O':
-                        print ('find a NO', symbol1, symbol2)
+                        #print ('find a NO', symbol1, symbol2)
                         return True
 
                     elif symbol1 == 'O' and symbol2 == 'N':
-                        print ('find a ON', symbol1, symbol2)
+                        #print ('find a ON', symbol1, symbol2)
                         return True
 
                     elif symbol1 == 'N' and symbol2 == 'N':
-                        print ('find a NN', symbol1, symbol2)
+                        #print ('find a NN', symbol1, symbol2)
                         return True
         return False
     
@@ -361,7 +361,7 @@ class PropertiesCalculator:
         for bond in mol.GetBonds():
             bondtype = bond.GetBondType()
             if bondtype == 2: # aromatic bond cannot be 2
-                print("It is a double bond")
+                #print("It is a double bond")
                 mol_begin=bond.GetBeginAtomIdx()
                 mol_end=bond.GetEndAtomIdx()
                 bond_a=mol.GetAtomWithIdx(mol_begin).GetSymbol()
