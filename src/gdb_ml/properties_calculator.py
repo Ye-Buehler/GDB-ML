@@ -1,14 +1,16 @@
+
+import os
+import sys
+import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.Chem import RDConfig
-import os
-import sys
-sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
-# now you can import sascore!
-import sascorer
-import pandas as pd
+from rdkit.Chem import QED
+from rdkit.Chem.Descriptors import qed
 import openbabel as ob
 from openbabel import pybel
+import sascorer
+sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
 
 
 class PropertiesCalculator:
@@ -381,3 +383,10 @@ class PropertiesCalculator:
                 #print('find a desired one!')
                 continue
         return True
+    
+
+    # TODO: QED calculation
+    def qed(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        qed = QED.qed(mol)
+        return qed
