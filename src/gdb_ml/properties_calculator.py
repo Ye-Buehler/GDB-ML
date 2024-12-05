@@ -282,7 +282,7 @@ class PropertiesCalculator:
             return True
     
     
-    # TODO: filtration - has NO or NN in non-aromatic rings
+    # TODO: filtration - has NO or NN in non-aromatic rings or acyclic bonds
     def if_NO_NN_in_non_aromatic_ring_or_acyclic(self, smiles):
 
         def isRingAromatic(m, bondRing):
