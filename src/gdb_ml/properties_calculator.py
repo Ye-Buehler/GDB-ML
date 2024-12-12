@@ -452,4 +452,19 @@ class PropertiesCalculator:
         
         # Calculate fraction of carbon atoms
         return carbon_atoms / total_atoms
+    
 
+    # TODO: Check undesired functional group
+    def undesired_GF(self, smiles):
+        
+        filter1 = non_aromatic_double_bond_filter(smiles)
+        filter2 = alogp(smiles)
+        filter3 = if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
+        filter4 = if_contain_OCO(smiles)
+        filter5 = if_contain_N3ring(smiles)
+        filter6 = threeringcheck(smiles)
+        filter7 = has_small_rings(smiles)
+        filter9 = has_atom_in_three_rings(smiles)
+        filter10 = divalent_nodes_fraction(smiles)
+
+        return (filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter9, filter10)
