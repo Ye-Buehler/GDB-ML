@@ -135,13 +135,13 @@ class DataProcessor:
     
 
     # TODO: append all the dataframes from a folder
-    def append_dfs_in_folder(self, FOLDER_PATH, COLUMN_NAME_INPUT, SEPRATOR='\t') -> pd.DataFrame:
+    def append_dfs_in_folder(self, FOLDER_PATH, COLUMN_NAME_INPUT, SEPRATOR='\t', FILETYPE = ".txt") -> pd.DataFrame:
 
         iteration = 0
         row_count = 0
 
         for filename in os.listdir(FOLDER_PATH):
-            if filename.endswith(".txt"):
+            if filename.endswith(FILETYPE):
                 
                 iteration += 1
                 if iteration == 1:
