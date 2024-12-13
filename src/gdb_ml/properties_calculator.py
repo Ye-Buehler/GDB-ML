@@ -528,4 +528,4 @@ class PropertiesCalculator:
         elif filter2 < 0:
             pass_check = False
 
-        return [[filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10], pass_check]
+        return [pass_check, [filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10]]
