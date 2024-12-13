@@ -494,6 +494,7 @@ class PropertiesCalculator:
 
     # TODO: Check undesired functional group
     def undesired_FG(self, smiles):
+        pass_check = True
         
         filter1 = self.non_aromatic_double_bond_filter(smiles)
         filter2 = self.alogp(smiles)
@@ -506,4 +507,25 @@ class PropertiesCalculator:
         filter9 = self.has_atom_in_three_rings(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
-        return [filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10]
+        if filter7 == True:
+            pass_check = False
+        elif filter10 <= 0.4:
+            pass_check = False
+        elif filter6 == False:
+            pass_check = False
+        elif filter8 == False:
+            pass_check = False
+        elif filter9 == True:
+            pass_check = False
+        elif filter1 == False:
+            pass_check = False
+        elif filter3 == True:
+            pass_check = False
+        elif filter4 == True:
+            pass_check = False
+        elif filter5 == True:
+            pass_check = False
+        elif filter2 < 0:
+            pass_check = False
+
+        return [[filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10], pass_check]
