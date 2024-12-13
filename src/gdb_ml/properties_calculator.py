@@ -454,6 +454,44 @@ class PropertiesCalculator:
         return carbon_atoms / total_atoms
     
 
+    # TODO: less than 1 7/8 membered ring, no ring greater than 8 membered
+    def ring_size_check(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        one_7_8_membered_ring = 0
+        zero_7_8_membered_ring = 0
+        more_than_one_7_8_membered_ring = 0
+        pass_check = True
+        try:
+                # Get the ring information
+                ring_info = mol.GetRingInfo()
+
+                # Get the ring sizes
+                ring_sizes = []
+                for ring in ring_info.AtomRings():
+                    ring_sizes.append(len(ring))
+
+                ring_sizes_set = sorted(ring_sizes)
+
+                count_7_or_8 = sum(1 for element in ring_sizes_set if 7 <= element <= 8)
+                count_greater_than_8 = sum(1 for element in ring_sizes_set if element > 8)
+
+                if count_greater_than_8 == 0 and count_7_or_8 == 1:
+                    one_7_8_membered_ring = 1
+
+                elif count_greater_than_8 == 0 and count_7_or_8 < 1:
+                    zero_7_8_membered_ring = 1
+
+                else:
+                    more_than_one_7_8_membered_ring = 1
+                    pass_check = False
+
+        except:
+            more_than_one_7_8_membered_ring = 1
+            pass_check = False
+
+        return pass_check
+    
+
     # TODO: Check undesired functional group
     def undesired_GF(self, smiles):
         
@@ -465,6 +503,7 @@ class PropertiesCalculator:
         filter6 = self.threeringcheck(smiles)
         filter7 = self.has_small_rings(smiles)
         filter9 = self.has_atom_in_three_rings(smiles)
+        filter8 = self.ring_size_check(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
-        return (filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter9, filter10)
+        return (filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10)
