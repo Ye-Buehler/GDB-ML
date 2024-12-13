@@ -506,4 +506,4 @@ class PropertiesCalculator:
         filter9 = self.has_atom_in_three_rings(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
-        return (filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10)
+        return [filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10]
