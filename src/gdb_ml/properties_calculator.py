@@ -493,7 +493,7 @@ class PropertiesCalculator:
     
 
     # TODO: Check undesired functional group
-    def undesired_GF(self, smiles):
+    def undesired_FG(self, smiles):
         
         filter1 = self.non_aromatic_double_bond_filter(smiles)
         filter2 = self.alogp(smiles)
