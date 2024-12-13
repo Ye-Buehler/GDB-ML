@@ -493,7 +493,7 @@ class PropertiesCalculator:
     
 
     # TODO: Check undesired functional group
-    def undesired_FG(self, smiles):
+    def undesired_FG_check(self, smiles):
         pass_check = True
         
         filter1 = self.non_aromatic_double_bond_filter(smiles)
@@ -529,3 +529,22 @@ class PropertiesCalculator:
             pass_check = False
 
         return [pass_check, [filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10]]
+
+
+
+    # TODO: Check undesired functional group
+    def undesired_FG_details(self, FILE_PATH_READ, FILE_PATH_SAVE):
+        df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
+
+        df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check)
+
+        df_failed = df[
+            df['Filter1-10'].apply(
+                lambda x: isinstance(x, list) and len(x) > 0 and x[0] == False
+            )
+        ].reset_index(drop=True)
+
+        df_failed.to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
+        print(f"File saved successfully to {FILE_PATH_SAVE}")
+
+        return len(df_failed)
