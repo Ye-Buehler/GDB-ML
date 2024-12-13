@@ -502,8 +502,8 @@ class PropertiesCalculator:
         filter5 = self.if_contain_N3ring(smiles)
         filter6 = self.threeringcheck(smiles)
         filter7 = self.has_small_rings(smiles)
-        filter9 = self.has_atom_in_three_rings(smiles)
         filter8 = self.ring_size_check(smiles)
+        filter9 = self.has_atom_in_three_rings(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
         return (filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8, filter9, filter10)
