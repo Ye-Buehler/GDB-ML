@@ -538,13 +538,7 @@ class PropertiesCalculator:
 
         df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check)
 
-        df_failed = df[
-            df['Filter1-10'].apply(
-                lambda x: isinstance(x, list) and len(x) > 0 and x[0] == False
-            )
-        ].reset_index(drop=True)
+        df_failed = df[df['Filter1-10'] == False].reset_index(drop=True)
 
-        df_failed.to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
+        df_failed['SMILES'].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE}")
-
-        return len(df_failed)
