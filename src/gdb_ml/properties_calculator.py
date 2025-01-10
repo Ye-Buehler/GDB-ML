@@ -533,12 +533,16 @@ class PropertiesCalculator:
 
 
     # TODO: Check undesired functional group
-    def undesired_FG_details(self, FILE_PATH_READ, FILE_PATH_SAVE):
+    def undesired_FG_details(self, FILE_PATH_READ, FILE_PATH_SAVE_PASS, FILE_PATH_SAVE_FAILED):
         df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
 
         df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check)
 
         df_failed = df[df['Filter1-10'] == False].reset_index(drop=True)
+        df_pass = df[df['Filter1-10'] == True].reset_index(drop=True)
 
-        df_failed['SMILES'].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
-        print(f"File saved successfully to {FILE_PATH_SAVE}")
+        df_pass['SMILES'].to_csv(FILE_PATH_SAVE_PASS, sep='\t', header=False, index=False)
+        print(f"File saved successfully to {FILE_PATH_SAVE_PASS}")
+
+        df_failed['SMILES'].to_csv(FILE_PATH_SAVE_FAILED, sep='\t', header=False, index=False)
+        print(f"File saved successfully to {FILE_PATH_SAVE_FAILED}")
