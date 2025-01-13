@@ -541,8 +541,8 @@ class PropertiesCalculator:
         df_failed = df[df['Filter1-10'] == False].reset_index(drop=True)
         df_pass = df[df['Filter1-10'] == True].reset_index(drop=True)
 
-        df_pass['SMILES', 'Log Prob'].to_csv(FILE_PATH_SAVE_PASS, sep='\t', header=False, index=False)
+        df_pass[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE_PASS, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE_PASS}")
 
-        df_failed['SMILES', 'Log Prob'].to_csv(FILE_PATH_SAVE_FAILED, sep='\t', header=False, index=False)
+        df_failed[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE_FAILED, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE_FAILED}")
