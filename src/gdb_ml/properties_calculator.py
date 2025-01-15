@@ -10,8 +10,9 @@ from rdkit.Chem import QED
 from rdkit.Chem.Descriptors import qed
 import openbabel as ob
 from openbabel import pybel
-import sascorer
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
+import sascorer
+
 
 
 class PropertiesCalculator:
