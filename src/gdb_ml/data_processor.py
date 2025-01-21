@@ -5,6 +5,10 @@ import re
 import sys
 import os
 from tqdm import tqdm
+from pandarallel import pandarallel
+
+# Initialize pandarallel
+pandarallel.initialize(progress_bar=True)  # Enable progress bar for better tracking
 
 FILE_PATH_READ = "file_path_read"
 FILE_PATH_SAVE = "file_path_save"
@@ -204,3 +208,34 @@ class DataProcessor:
         validity, df_valid = validity(df)
         self.save_to_file(df_valid, FILE_PATH_SAVE)
         return validity, df_valid
+    
+    # TODO: combine the log prob values and count correspondingly
+    def log_prob_count(self, FOLDER_PATH):
+
+        # Function to process each file
+        def process_file(file_path):
+            # Read the file into a DataFrame (assuming tab-separated)
+            df = pd.read_csv(file_path, sep='\t', header=None, usecols=[1], names=["Log Prob"])
+
+            # Round the "Log Prob" to 1 decimal place
+            df['Log Prob'] = df['Log Prob'].round(1)
+
+            # Count occurrences of each log prob value
+            return df['Log Prob'].value_counts().reset_index(name='Count').rename(columns={'index': 'Log Prob Category'})
+
+        # Get a list of all txt files in the folder
+        files = [os.path.join(FOLDER_PATH, f) for f in os.listdir(FOLDER_PATH) if f.endswith('.txt')]
+
+        # Process files in parallel using pandarallel and convert the result to a list
+        results = pd.Series(files).parallel_map(process_file).tolist()
+
+        # Concatenate the results into a single DataFrame
+        combined_results = pd.concat(results)
+
+        # Group by "Log Prob Category" and sum the counts
+        final_result = combined_results.groupby('Log Prob Category', as_index=False)['Count'].sum()
+
+        # Sort by "Log Prob Category"
+        final_result = final_result.sort_values(by='Log Prob Category')
+
+        return final_result
