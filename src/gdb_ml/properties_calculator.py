@@ -551,7 +551,7 @@ class PropertiesCalculator:
 
 
     # TODO: Check undesired functional group
-    def multi_qed_sas_fsp3_CF(self, FILE_PATH_READ, FILE_PATH_SAVE_QED_SAS_FSP3_CF):
+    def multi_qed_sas_fsp3_cf(self, FILE_PATH_READ, FILE_PATH_SAVE_QED_SAS_FSP3_CF):
         df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
 
         df['QED']= ""
