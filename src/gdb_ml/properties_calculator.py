@@ -547,3 +547,38 @@ class PropertiesCalculator:
 
         df_failed[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE_FAILED, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE_FAILED}")
+
+
+
+    # TODO: Check undesired functional group
+    def multi_qed_sas_fsp3_CF(self, FILE_PATH_READ, FILE_PATH_SAVE_QED_SAS_FSP3_CF):
+        df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
+
+        df['QED']= ""
+        df['SAscore']= ""
+        df['Fsp3']= ""
+        df['C-atoms Fraction']= ""
+
+        count = 0
+        my_list_invaild = []
+
+        for q in range(0, len(df)):
+            
+            try:  
+                smiles = df['SMILES'][q]
+                df.loc[q, 'SAscore'] = self.sascore(smiles)
+                df.loc[q, 'QED'] = self.qed(smiles)
+                df.loc[q, 'Fsp3'] = self.fsp3(smiles)
+                df.loc[q, 'C-atoms Fraction'] = self.fraction_c(smiles)
+                
+            except:
+                count += 1
+                my_list_invaild.append(q)
+                continue
+
+
+        df[['SMILES', 'Log Prob','QED', 'SAscore','Fsp3', 'C-atoms Fraction']].to_csv(FILE_PATH_SAVE_QED_SAS_FSP3_CF, sep='\t', header=False, index=False)
+        print(f"File saved successfully to {FILE_PATH_SAVE_QED_SAS_FSP3_CF}")
+
+ 
+
