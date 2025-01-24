@@ -589,5 +589,5 @@ class PropertiesCalculator:
         # Filter out rows where 'Log Prob' is less than the threshold
         df_filtered = df[df["Log Prob"] >= PROB_THRESHOLD].reset_index(drop=True)
 
-        df[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
+        df_filtered[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE}")
