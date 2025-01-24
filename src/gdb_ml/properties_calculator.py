@@ -582,3 +582,12 @@ class PropertiesCalculator:
 
  
 
+    # TODO: Check mols with high confidence score
+    def high_cs_check(self, FILE_PATH_READ, FILE_PATH_SAVE, PROB_THRESHOLD):
+        df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
+
+        # Filter out rows where 'Log Prob' is less than the threshold
+        df_filtered = df[df["Log Prob"] >= PROB_THRESHOLD].reset_index(drop=True)
+
+        df[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
+        print(f"File saved successfully to {FILE_PATH_SAVE}")
