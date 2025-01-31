@@ -530,6 +530,56 @@ class PropertiesCalculator:
             pass_check = False
 
         return pass_check
+    
+
+    # TODO: Check undesired functional group
+    def undesired_FG_check_print(self, smiles):
+        pass_check = True
+        print("For molecule:", smiles )
+        
+        filter1 = self.non_aromatic_double_bond_filter(smiles)
+        filter2 = self.alogp(smiles)
+        filter3 = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
+        filter4 = self.if_contain_OCO(smiles)
+        filter5 = self.if_contain_N3ring(smiles)
+        filter6 = self.threeringcheck(smiles)
+        filter7 = self.has_small_rings(smiles)
+        filter8 = self.ring_size_check(smiles)
+        filter9 = self.has_atom_in_three_rings(smiles)
+        filter10 = self.divalent_nodes_fraction(smiles)
+
+        if filter7 == True:
+            pass_check = False
+            print("Failed: has_small_rings")
+        elif filter10 <= 0.4:
+            pass_check = False
+            print("Failed: divalent_nodes_fraction")
+        elif filter6 == False:
+            pass_check = False
+            print("Failed: threeringcheck")
+        elif filter8 == False:
+            pass_check = False
+            print("Failed: ring_size_check")
+        elif filter9 == True:
+            pass_check = False
+            print("Failed: has_atom_in_three_rings")
+        elif filter1 == False:
+            pass_check = False
+            print("Failed: non_aromatic_double_bond_filter")
+        elif filter3 == True:
+            pass_check = False
+            print("Failed: if_NO_NN_in_non_aromatic_ring_or_acyclic")
+        elif filter4 == True:
+            pass_check = False
+            print("Failed: if_contain_OCO")
+        elif filter5 == True:
+            pass_check = False
+            print("Failed: if_contain_N3ring")
+        elif filter2 < 0:
+            pass_check = False
+            print("Failed: alogp")
+
+        return pass_check
 
 
 
@@ -549,8 +599,15 @@ class PropertiesCalculator:
         print(f"File saved successfully to {FILE_PATH_SAVE_FAILED}")
 
 
+    # TODO: show the details of the failed molecules
+    def show_undesired_FG_details(self, FILE_PATH_READ):
+        df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
 
-    # TODO: Check undesired functional group
+        df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check_print)
+
+
+
+    # TODO: Check the four properties
     def multi_qed_sas_fsp3_cf(self, FILE_PATH_READ, FILE_PATH_SAVE_QED_SAS_FSP3_CF):
         df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
 
