@@ -54,7 +54,7 @@ class PropertiesCalculator:
         except:
             d2 = 0
 
-test        # D3  the number of rings:
+        # D3  the number of rings:
         number_of_ring = 0
         for s in smiles:
             count_ring_indices = 0
