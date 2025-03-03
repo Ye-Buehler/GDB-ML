@@ -112,6 +112,33 @@ class PropertiesCalculator:
         return true_percentage, df_valid
     
 
+    # TODO: Check which SMILES is invalid
+    def invalid(self, df):
+
+        #to check SMILES validity with handling for NaN and non-string values
+        def is_valid_smiles(smiles):
+            if isinstance(smiles, str):  # Ensure the entry is a string
+                try:
+                    mol = Chem.MolFromSmiles(smiles)
+                    canonical_smiles = Chem.MolToSmiles(mol, canonical=True)
+                    return canonical_smiles
+                except: 
+                    return False
+            return False
+        
+        # Apply the function to check validity
+        df['Canonical_SMILES'] = df['SMILES'].apply(is_valid_smiles)
+
+        # Extract invalid SMILES (where `Canonical_SMILES` is None)
+        df_invalid = df[df['Canonical_SMILES'].isna()].reset_index(drop=True)
+
+        # Drop unnecessary column before returning
+        df_invalid = df_invalid.drop(columns=['Canonical_SMILES'])
+
+        return df_invalid
+    
+    
+
     # TODO: Compute the metric uniqueness
     def uniqueness(self, df):
         # Get unique rows in the DataFrame
