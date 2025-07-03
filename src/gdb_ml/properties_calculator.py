@@ -664,7 +664,7 @@ class PropertiesCalculator:
         return Chem.Crippen.MolLogP(mol)
 
     # TODO: MOSES-NP
-    def NP(self, smiles):
+    def npscore(self, smiles):
         """
         Computes RDKit's Natural Product-likeness score
         """
