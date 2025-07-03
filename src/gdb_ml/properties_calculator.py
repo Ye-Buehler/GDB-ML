@@ -13,6 +13,11 @@ from openbabel import pybel
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
 import sascorer
 
+sys.path.append(os.path.join(RDConfig.RDContribDir, 'NP_Score'))
+import npscorer
+ContriDir = RDConfig.RDContribDir
+filename = os.path.join(ContriDir, 'NP_Score/publicnp.model.gz')
+fscore = npscorer.pickle.load(npscorer.gzip.open(filename)) 
 
 
 class PropertiesCalculator:
@@ -648,3 +653,29 @@ class PropertiesCalculator:
 
         df_filtered[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE}")
+
+
+    # TODO: MOSES-logP
+    def logP(self, smiles):
+        """
+        Computes RDKit's logP
+        """
+        mol=Chem.MolFromSmiles(smiles)
+        return Chem.Crippen.MolLogP(mol)
+
+    # TODO: MOSES-NP
+    def NP(self, smiles):
+        """
+        Computes RDKit's Natural Product-likeness score
+        """
+        mol=Chem.MolFromSmiles(smiles)
+        return npscorer.scoreMol(mol,fscore=fscore)
+    
+    # TODO: MOSES-weight
+    def weight(self, smiles):
+        """
+        Computes molecular weight for given molecule.
+        Returns float,
+        """
+        mol=Chem.MolFromSmiles(smiles)
+        return Descriptors.MolWt(mol)
