@@ -746,7 +746,7 @@ class PropertiesCalculator:
         mol = Chem.MolFromSmiles(smiles)
         return Descriptors.NumRotatableBonds(mol) if mol else None
     
-    def get_frb(smiles):
+    def get_frb(self, smiles):
         """
         Calculate Fraction of Rotatable Bonds (FRB) from SMILES.
         FRB = NumRotatableBonds / HeavyAtomCount
