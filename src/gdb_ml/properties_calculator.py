@@ -10,7 +10,7 @@ from rdkit.Chem import QED
 from rdkit.Chem import Crippen
 from rdkit.Chem.Descriptors import qed
 from rdkit.Chem import AllChem
-from rdkit.Chem.rdMolDescriptors import CalcPrincipalMomentsOfInertia
+
 import openbabel as ob
 from openbabel import pybel
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
@@ -851,11 +851,11 @@ class PropertiesCalculator:
 
     def get_molecular_shape(self, smiles):
         """
-        Classify molecular shape based on normalized PMI:
-        - 'rod' : elongated shape
-        - 'disc': flat, planar
-        - 'sphere': globular
-        Returns None if invalid or 3D geometry fails.
+        Classify molecular shape based on normalized principal moments of inertia (PMI):
+        - 'rod': elongated molecules (NPR1 low, NPR2 high)
+        - 'disc': flat/planar molecules
+        - 'sphere': globular molecules
+        Returns one of: 'rod', 'disc', 'sphere', 'mixed', or None (if failure).
         """
         mol = Chem.MolFromSmiles(smiles)
         if mol is None:
@@ -865,13 +865,21 @@ class PropertiesCalculator:
         try:
             AllChem.EmbedMolecule(mol, AllChem.ETKDG())
             AllChem.UFFOptimizeMolecule(mol)
-            I1, I2, I3 = sorted(CalcPrincipalMomentsOfInertia(mol))
-            npr1 = I1 / I3 if I3 != 0 else 0
-            npr2 = I2 / I3 if I3 != 0 else 0
-        except:
+
+            I1 = rdMolDescriptors.CalcPMI1(mol)
+            I2 = rdMolDescriptors.CalcPMI2(mol)
+            I3 = rdMolDescriptors.CalcPMI3(mol)
+
+            if I3 == 0:
+                return None  # avoid division by zero
+
+            npr1 = I1 / I3
+            npr2 = I2 / I3
+
+        except Exception:
             return None
 
-        # Simple shape rule (adjustable)
+        # Classify based on NPR1 and NPR2
         if npr1 < 0.3 and npr2 > 0.9:
             return "rod"
         elif 0.5 < npr1 < 0.9 and npr2 < 0.6:
