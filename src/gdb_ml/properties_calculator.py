@@ -7,7 +7,10 @@ from rdkit.Chem import Descriptors
 from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDConfig
 from rdkit.Chem import QED
+from rdkit.Chem import Crippen
 from rdkit.Chem.Descriptors import qed
+from rdkit.Chem import AllChem
+from rdkit.Chem.rdMolDescriptors import CalcPrincipalMomentsOfInertia
 import openbabel as ob
 from openbabel import pybel
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
@@ -655,13 +658,17 @@ class PropertiesCalculator:
         print(f"File saved successfully to {FILE_PATH_SAVE}")
 
 
-    # TODO: MOSES-logP
-    def logP(self, smiles):
+    # TODO: MOSES-logP/clogP
+    def clogp(self, smiles):
         """
-        Computes RDKit's logP
+        Compute clogP (Wildman-Crippen logP) for a SMILES string.
+        Returns None if the molecule is invalid.
         """
-        mol=Chem.MolFromSmiles(smiles)
-        return Chem.Crippen.MolLogP(mol)
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+
+        return round(Crippen.MolLogP(mol), 2)
 
     # TODO: MOSES-NP
     def npscore(self, smiles):
@@ -679,3 +686,197 @@ class PropertiesCalculator:
         """
         mol=Chem.MolFromSmiles(smiles)
         return Descriptors.MolWt(mol)
+
+
+    def classify_structure(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return "invalid"
+
+        has_ring = mol.GetRingInfo().NumRings() > 0
+        is_aromatic = any(ring.IsAromatic() for ring in mol.GetRingInfo().AtomRings())
+        atom_types = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
+        has_heteroatom = any(Z not in (1, 6) for Z in atom_types)
+
+        # Ring-based prioritization
+        if has_ring and is_aromatic and has_heteroatom:
+            return "heteroaromatic"
+        elif has_ring and is_aromatic and not has_heteroatom:
+            return "aromatic"
+        elif has_ring and not is_aromatic and has_heteroatom:
+            return "heterocyclic"
+        elif has_ring and not is_aromatic and not has_heteroatom:
+            return "carbocyclic"
+        elif not has_ring and has_heteroatom:
+            return "heteroacyclic"
+        elif not has_ring and not has_heteroatom:
+            return "carboacyclic"
+        else:
+            return "unclassified"
+        
+    def tpsa(self, smiles):
+        """
+        Compute the Topological Polar Surface Area (TPSA) of a molecule.
+        Returns TPSA as a float, or None if SMILES is invalid.
+        """
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+        return round(Descriptors.TPSA(mol), 2)
+
+    def get_hbd(self, smiles):
+        """Hydrogen bond donors"""
+        mol = Chem.MolFromSmiles(smiles)
+        return Descriptors.NumHDonors(mol) if mol else None
+    
+
+    def get_hba(self, smiles):
+        """Hydrogen bond acceptors"""
+        mol = Chem.MolFromSmiles(smiles)
+        return Descriptors.NumHAcceptors(mol) if mol else None
+    
+
+    def get_rbc(self, smiles):
+        """Rotatable single bonds"""
+        mol = Chem.MolFromSmiles(smiles)
+        return Descriptors.NumRotatableBonds(mol) if mol else None
+    
+    def get_frb(smiles):
+        """
+        Calculate Fraction of Rotatable Bonds (FRB) from SMILES.
+        FRB = NumRotatableBonds / HeavyAtomCount
+        Returns None if invalid molecule.
+        """
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+
+        rot_bonds = Descriptors.NumRotatableBonds(mol)
+        hac = Descriptors.HeavyAtomCount(mol)
+
+        if hac == 0:
+            return 0  # or None, depending on preference
+        return rot_bonds / hac
+
+
+    def classify_ring_complexity(self, smiles):
+        """
+        Classifies ring complexity:
+        - acyclic
+        - monocyclic
+        - bicyclic
+        - polycyclic
+        """
+        try:
+
+            number_of_ring = 0
+            for s in smiles:
+                count_ring_indices = 0
+                in_brackets = False
+                two_digit_idx = False
+                idx = ''
+                for char in s:
+                    if char == '[':
+                        in_brackets = True
+                    elif char == ']':
+                        in_brackets = False
+                    elif char == '%':
+                        two_digit_idx = True
+                    elif not in_brackets and char.isdigit():
+                        if two_digit_idx:
+                            if len(idx) == 0:
+                                idx += char
+                            elif len(idx) >= 1:
+                                count_ring_indices += 1
+                                idx = ''
+                                two_digit_idx = False
+                        else:
+                            count_ring_indices += 1
+                ring_part = count_ring_indices / 2
+                ring_count = number_of_ring + ring_part
+
+            if ring_count == 0:
+                return "acyclic"
+            elif ring_count == 1:
+                return "monocyclic"
+            elif ring_count == 2:
+                return "bicyclic"
+            else:
+                return "polycyclic"
+        except:
+            return "invalid"
+
+
+    # TODO: MC1 calculation
+    def mc1(self, smiles):
+
+        mc1 = 1- self.divalent_nodes_fraction(smiles)
+        
+        return mc1
+    
+
+    # TODO: MC2 calculation - Count non-divalent atoms that are not in the C=O-X double bonds 
+    def mc2(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            raise ValueError("Invalid SMILES string.")
+
+        atoms_in_C_O_X_double_bond = set()
+
+        for bond in mol.GetBonds():
+            # Check for a C=O double bond
+            if bond.GetBondType() == Chem.rdchem.BondType.DOUBLE:
+                begin_atom = bond.GetBeginAtom()
+                end_atom = bond.GetEndAtom()
+
+                if {begin_atom.GetAtomicNum(), end_atom.GetAtomicNum()} == {6, 8}:  # C and O
+                    # Identify which one is the carbon
+                    carbon = begin_atom if begin_atom.GetAtomicNum() == 6 else end_atom
+                    oxygen = end_atom if carbon == begin_atom else begin_atom
+
+                    # Check carbon's neighbors for N or O (excluding the double-bonded O)
+                    for neighbor in carbon.GetNeighbors():
+                        if neighbor.GetIdx() != oxygen.GetIdx() and neighbor.GetAtomicNum() in [7, 8]:
+                            atoms_in_C_O_X_double_bond.update([carbon.GetIdx(), oxygen.GetIdx()])
+                            break  # Only need one N/O neighbor to satisfy the condition
+
+        # Count non-divalent atoms not in C=O-X double bonds
+        count = 0
+        for atom in mol.GetAtoms():
+            if atom.GetDegree() != 2 and atom.GetIdx() not in atoms_in_C_O_X_double_bond:
+                count += 1
+
+        return count
+    
+
+    def get_molecular_shape(self, smiles):
+        """
+        Classify molecular shape based on normalized PMI:
+        - 'rod' : elongated shape
+        - 'disc': flat, planar
+        - 'sphere': globular
+        Returns None if invalid or 3D geometry fails.
+        """
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+
+        mol = Chem.AddHs(mol)
+        try:
+            AllChem.EmbedMolecule(mol, AllChem.ETKDG())
+            AllChem.UFFOptimizeMolecule(mol)
+            I1, I2, I3 = sorted(CalcPrincipalMomentsOfInertia(mol))
+            npr1 = I1 / I3 if I3 != 0 else 0
+            npr2 = I2 / I3 if I3 != 0 else 0
+        except:
+            return None
+
+        # Simple shape rule (adjustable)
+        if npr1 < 0.3 and npr2 > 0.9:
+            return "rod"
+        elif 0.5 < npr1 < 0.9 and npr2 < 0.6:
+            return "disc"
+        elif abs(npr1 - npr2) < 0.1 and npr1 > 0.7:
+            return "sphere"
+        else:
+            return "mixed"
