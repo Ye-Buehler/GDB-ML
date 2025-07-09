@@ -693,10 +693,15 @@ class PropertiesCalculator:
         if mol is None:
             return "invalid"
 
-        has_ring = mol.GetRingInfo().NumRings() > 0
-        is_aromatic = any(ring.IsAromatic() for ring in mol.GetRingInfo().AtomRings())
+        ring_info = mol.GetRingInfo()
+        atom_rings = ring_info.AtomRings()
+        has_ring = len(atom_rings) > 0
+
         atom_types = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
         has_heteroatom = any(Z not in (1, 6) for Z in atom_types)
+
+        # Check if any atom in any ring is aromatic
+        is_aromatic = any(all(mol.GetAtomWithIdx(idx).GetIsAromatic() for idx in ring) for ring in atom_rings)
 
         # Ring-based prioritization
         if has_ring and is_aromatic and has_heteroatom:
