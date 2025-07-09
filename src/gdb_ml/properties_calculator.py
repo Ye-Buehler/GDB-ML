@@ -774,7 +774,7 @@ class PropertiesCalculator:
         """
         try:
 
-            number_of_ring = 0
+            ring_count = 0
             for s in smiles:
                 count_ring_indices = 0
                 in_brackets = False
