@@ -884,12 +884,4 @@ class PropertiesCalculator:
         except Exception:
             return None
 
-        # Classify based on NPR1 and NPR2
-        if npr1 < 0.3 and npr2 > 0.9:
-            return "rod"
-        elif 0.5 < npr1 < 0.9 and npr2 < 0.6:
-            return "disc"
-        elif abs(npr1 - npr2) < 0.1 and npr1 > 0.7:
-            return "sphere"
-        else:
-            return "mixed"
+        return I1 / I3, I2 / I3  # NPR1, NPR2
