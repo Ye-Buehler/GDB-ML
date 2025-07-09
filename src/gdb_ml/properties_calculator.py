@@ -798,7 +798,7 @@ class PropertiesCalculator:
                         else:
                             count_ring_indices += 1
                 ring_part = count_ring_indices / 2
-                ring_count = number_of_ring + ring_part
+                ring_count = ring_count + ring_part
 
             if ring_count == 0:
                 return "acyclic"
