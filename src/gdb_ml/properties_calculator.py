@@ -162,12 +162,12 @@ class PropertiesCalculator:
         return size
     
 
-    # TODO: AlogP calculation
-    def alogp(self, smiles):
+    # TODO: logP calculation
+    def logp(self, smiles):
         molecule = Chem.MolFromSmiles(smiles)
-        alogp = Descriptors.MolLogP(molecule)
+        logp = Descriptors.MolLogP(molecule)
 
-        return alogp
+        return logp
     
 
     # TODO: Calculate the FDV
@@ -506,7 +506,7 @@ class PropertiesCalculator:
         pass_check = True
         
         filter1 = self.non_aromatic_double_bond_filter(smiles)
-        filter2 = self.alogp(smiles)
+        filter2 = self.logp(smiles)
         filter3 = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
         filter4 = self.if_contain_OCO(smiles)
         filter5 = self.if_contain_N3ring(smiles)
@@ -546,7 +546,7 @@ class PropertiesCalculator:
         print("For molecule:", smiles )
         
         filter1 = self.non_aromatic_double_bond_filter(smiles)
-        filter2 = self.alogp(smiles)
+        filter2 = self.logp(smiles)
         filter3 = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
         filter4 = self.if_contain_OCO(smiles)
         filter5 = self.if_contain_N3ring(smiles)
@@ -585,7 +585,7 @@ class PropertiesCalculator:
             print("Failed: if_contain_N3ring")
         elif filter2 < 0:
             pass_check = False
-            print("Failed: alogp")
+            print("Failed: logp")
 
         return pass_check
 
@@ -658,7 +658,7 @@ class PropertiesCalculator:
         print(f"File saved successfully to {FILE_PATH_SAVE}")
 
 
-    # TODO: MOSES-logP/clogP
+    # TODO: MOSES-clogP
     def clogp(self, smiles):
         """
         Compute clogP (Wildman-Crippen logP) for a SMILES string.
