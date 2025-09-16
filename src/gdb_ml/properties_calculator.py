@@ -885,3 +885,61 @@ class PropertiesCalculator:
             return None
 
         return I1 / I3, I2 / I3  # NPR1, NPR2
+    
+
+
+    # function to count stereocenters
+    def count_stereocenters(self, smiles):
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            if mol is None:
+                return None
+            chiral_centers = Chem.FindMolChiralCenters(mol, includeUnassigned=True)
+            return len(chiral_centers)
+        except:
+            return None
+        
+
+    def number_of_rings(self, smiles):            
+        ring_count = 0
+        for s in smiles:
+            count_ring_indices = 0
+            in_brackets = False
+            two_digit_idx = False
+            idx = ''
+            for char in s:
+                if char == '[':
+                    in_brackets = True
+                elif char == ']':
+                    in_brackets = False
+                elif char == '%':
+                    two_digit_idx = True
+                elif not in_brackets and char.isdigit():
+                    if two_digit_idx:
+                        if len(idx) == 0:
+                            idx += char
+                        elif len(idx) >= 1:
+                            count_ring_indices += 1
+                            idx = ''
+                            two_digit_idx = False
+                    else:
+                        count_ring_indices += 1
+            ring_part = count_ring_indices / 2
+            ring_count = ring_count + ring_part
+        return ring_count
+
+
+    def largest_ring_size(self, smi):
+        """
+        Return the size of the largest ring in a molecule.
+        If the molecule has no rings or is invalid, return 0.
+        """
+        mol = Chem.MolFromSmiles(smi)
+        if mol is None:
+            return 0
+        try:
+            sssr = AllChem.GetSymmSSSR(mol)
+            return max((len(r) for r in sssr), default=0)
+        except Exception:
+            return 0
+        
