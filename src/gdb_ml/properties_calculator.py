@@ -767,10 +767,11 @@ class PropertiesCalculator:
     def classify_ring_complexity(self, smiles):
         """
         Classifies ring complexity:
-        - acyclic
-        - monocyclic
-        - bicyclic
-        - polycyclic
+        - 0
+        - 1
+        - 2
+        - 3
+        - >3
         """
         try:
 
@@ -801,13 +802,15 @@ class PropertiesCalculator:
                 ring_count = ring_count + ring_part
 
             if ring_count == 0:
-                return "acyclic"
+                return "0"
             elif ring_count == 1:
-                return "monocyclic"
+                return "1"
             elif ring_count == 2:
-                return "bicyclic"
+                return "2"
+            elif ring_count == 3:
+                return "3"
             else:
-                return "polycyclic"
+                return ">3"
         except:
             return "invalid"
 
