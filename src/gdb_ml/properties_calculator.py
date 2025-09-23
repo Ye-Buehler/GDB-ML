@@ -691,7 +691,7 @@ class PropertiesCalculator:
     def classify_structure(self, smiles):
 
         """
-        Classify a molecule into structural categories using Open Babel aromaticity.
+        Classify molecules into structure categories using OpenBabel aromaticity.
         
         Categories:
         - heteroaromatic
@@ -705,20 +705,22 @@ class PropertiesCalculator:
         except Exception:
             return "invalid"
 
-        rings = mol.OBMol.GetSSSR()  # smallest set of smallest rings
-        has_ring = rings > 0
+        # Get rings
+        rings = mol.OBMol.GetSSSR()
+        has_ring = rings.Size() > 0  
 
-        # detect heteroatoms
-        has_heteroatom = any(atom.atomicnum not in (1, 6) for atom in mol.atoms)
+        # Atom info
+        atoms = [atom for atom in mol.atoms]
+        has_heteroatom = any(atom.atomicnum not in (1, 6) for atom in atoms)
 
-        # detect aromatic rings
-        has_aromatic_ring = False
-        for ring in mol.OBMol.GetSSSR():  # iterate over OB ring objects
-            if ring.IsAromatic():
-                has_aromatic_ring = True
-                break
+        # Detect aromatic rings
+        aromatic_rings = []
+        for ring in rings:
+            is_arom = all(mol.OBMol.GetAtom(idx).IsAromatic() for idx in ring._path)
+            aromatic_rings.append(is_arom)
+        has_aromatic_ring = any(aromatic_rings)
 
-        # classification
+        # Classification
         if has_ring and has_aromatic_ring and has_heteroatom:
             return "heteroaromatic"
         elif has_ring and has_aromatic_ring and not has_heteroatom:
