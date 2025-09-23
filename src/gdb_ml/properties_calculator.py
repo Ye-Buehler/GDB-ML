@@ -689,6 +689,7 @@ class PropertiesCalculator:
 
 
     def classify_structure(self, smiles):
+
         mol = Chem.MolFromSmiles(smiles)
         if mol is None:
             return "invalid"
@@ -700,20 +701,28 @@ class PropertiesCalculator:
         atom_types = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
         has_heteroatom = any(Z not in (1, 6) for Z in atom_types)
 
-        # Check if any atom in any ring is aromatic
-        is_aromatic = any(
-            all(mol.GetAtomWithIdx(idx).GetIsAromatic() for idx in ring)
-            for ring in atom_rings
-        )
+        # --- Ring aromaticity check based on bonds ---
+        def ring_is_aromatic(ring_atoms):
+            bond_indices = []
+            for i in range(len(ring_atoms)):
+                a1 = ring_atoms[i]
+                a2 = ring_atoms[(i + 1) % len(ring_atoms)]
+                bond = mol.GetBondBetweenAtoms(a1, a2)
+                if bond is None:
+                    return False
+                bond_indices.append(bond.GetIdx())
+            return all(mol.GetBondWithIdx(b).GetIsAromatic() for b in bond_indices)
 
-        # Classification according to the plot
-        if has_ring and is_aromatic and has_heteroatom:
+        has_aromatic_ring = any(ring_is_aromatic(ring) for ring in atom_rings)
+
+        # --- Classification ---
+        if has_ring and has_aromatic_ring and has_heteroatom:
             return "heteroaromatic"
-        elif has_ring and is_aromatic and not has_heteroatom:
+        elif has_ring and has_aromatic_ring and not has_heteroatom:
             return "aromatic"
-        elif has_ring and not is_aromatic and has_heteroatom:
+        elif has_ring and not has_aromatic_ring and has_heteroatom:
             return "heterocyclic"
-        elif has_ring and not is_aromatic and not has_heteroatom:
+        elif has_ring and not has_aromatic_ring and not has_heteroatom:
             return "carbocyclic"
         elif not has_ring:
             return "acyclic"
