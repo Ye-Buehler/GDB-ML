@@ -690,32 +690,35 @@ class PropertiesCalculator:
 
     def classify_structure(self, smiles):
 
-        mol = Chem.MolFromSmiles(smiles)
-        if mol is None:
+        """
+        Classify a molecule into structural categories using Open Babel aromaticity.
+        
+        Categories:
+        - heteroaromatic
+        - aromatic
+        - heterocyclic
+        - carbocyclic
+        - acyclic
+        """
+        try:
+            mol = pybel.readstring("smi", smiles)
+        except Exception:
             return "invalid"
 
-        ring_info = mol.GetRingInfo()
-        atom_rings = ring_info.AtomRings()
-        has_ring = len(atom_rings) > 0
+        rings = mol.OBMol.GetSSSR()  # smallest set of smallest rings
+        has_ring = rings > 0
 
-        atom_types = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
-        has_heteroatom = any(Z not in (1, 6) for Z in atom_types)
+        # detect heteroatoms
+        has_heteroatom = any(atom.atomicnum not in (1, 6) for atom in mol.atoms)
 
-        # --- Ring aromaticity check based on bonds ---
-        def ring_is_aromatic(ring_atoms):
-            bond_indices = []
-            for i in range(len(ring_atoms)):
-                a1 = ring_atoms[i]
-                a2 = ring_atoms[(i + 1) % len(ring_atoms)]
-                bond = mol.GetBondBetweenAtoms(a1, a2)
-                if bond is None:
-                    return False
-                bond_indices.append(bond.GetIdx())
-            return all(mol.GetBondWithIdx(b).GetIsAromatic() for b in bond_indices)
+        # detect aromatic rings
+        has_aromatic_ring = False
+        for ring in mol.OBMol.GetSSSR():  # iterate over OB ring objects
+            if ring.IsAromatic():
+                has_aromatic_ring = True
+                break
 
-        has_aromatic_ring = any(ring_is_aromatic(ring) for ring in atom_rings)
-
-        # --- Classification ---
+        # classification
         if has_ring and has_aromatic_ring and has_heteroatom:
             return "heteroaromatic"
         elif has_ring and has_aromatic_ring and not has_heteroatom:
@@ -728,6 +731,7 @@ class PropertiesCalculator:
             return "acyclic"
         else:
             return "unclassified"
+
         
     def tpsa(self, smiles):
         """
