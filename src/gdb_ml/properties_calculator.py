@@ -701,9 +701,12 @@ class PropertiesCalculator:
         has_heteroatom = any(Z not in (1, 6) for Z in atom_types)
 
         # Check if any atom in any ring is aromatic
-        is_aromatic = any(all(mol.GetAtomWithIdx(idx).GetIsAromatic() for idx in ring) for ring in atom_rings)
+        is_aromatic = any(
+            all(mol.GetAtomWithIdx(idx).GetIsAromatic() for idx in ring)
+            for ring in atom_rings
+        )
 
-        # Ring-based prioritization
+        # Classification according to the plot
         if has_ring and is_aromatic and has_heteroatom:
             return "heteroaromatic"
         elif has_ring and is_aromatic and not has_heteroatom:
@@ -712,10 +715,8 @@ class PropertiesCalculator:
             return "heterocyclic"
         elif has_ring and not is_aromatic and not has_heteroatom:
             return "carbocyclic"
-        elif not has_ring and has_heteroatom:
-            return "heteroacyclic"
-        elif not has_ring and not has_heteroatom:
-            return "carboacyclic"
+        elif not has_ring:
+            return "acyclic"
         else:
             return "unclassified"
         
