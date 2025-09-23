@@ -692,30 +692,22 @@ class PropertiesCalculator:
 
         """
         Classify molecules into structure categories using OpenBabel aromaticity.
-        
-        Categories:
-        - heteroaromatic
-        - aromatic
-        - heterocyclic
-        - carbocyclic
-        - acyclic
         """
         try:
             mol = pybel.readstring("smi", smiles)
         except Exception:
             return "invalid"
 
-        # Get rings
-        rings = mol.OBMol.GetSSSR()
-        has_ring = rings.Size() > 0  
+         # Count rings
+        rings = list(mol.OBMol.GetSSSR())
+        has_ring = len(rings) > 0
 
-        # Atom info
         atoms = [atom for atom in mol.atoms]
         has_heteroatom = any(atom.atomicnum not in (1, 6) for atom in atoms)
 
         # Detect aromatic rings
         aromatic_rings = []
-        for ring in rings:
+        for ring in mol.OBMol.GetSSSR():
             is_arom = all(mol.OBMol.GetAtom(idx).IsAromatic() for idx in ring._path)
             aromatic_rings.append(is_arom)
         has_aromatic_ring = any(aromatic_rings)
@@ -733,6 +725,7 @@ class PropertiesCalculator:
             return "acyclic"
         else:
             return "unclassified"
+
 
         
     def tpsa(self, smiles):
