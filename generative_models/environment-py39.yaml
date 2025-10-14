@@ -1,0 +1,33 @@
+name: reinvent-gdb13-py39
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - scipy
+  - tensorflow=2.4.1
+  - tensorboard
+  - h5py
+  - protobuf
+  - boost
+  - rdkit
+  - pip
+  - pip:
+      - deepsmiles==1.0.1
+      - pyspark==3.5.5
+      - torch==2.7.0
+      - torchvision==0.22.0
+      - torchaudio==2.7.0
+      - tqdm==4.67.1
+      - triton==3.3.0
+      - pillow==11.2.1
+      - networkx==3.2.1
+      - sympy==1.14.0
+      - typing-extensions==4.13.2
+      - rdkit-pypi==2022.9.5
+      - tb-nightly==2.20.0a20250519
+      - filelock==3.18.0
+      - jinja2==3.1.6
+      - markupsafe==3.0.2
+
