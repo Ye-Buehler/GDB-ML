@@ -48,7 +48,7 @@ Original OpenNMT-py:
 
 * If you reuse this code please also cite the underlying code framework: "`OpenNMT technical report <https://www.aclweb.org/anthology/P17-4012>`_".
 
-Original OpenNMT-py:
+Original Reinvent-Randomized:
 --------
 
 * If you reuse this code please also cite the underlying code framework: "`reinvent-randomized <https://github.com/undeadpixel/reinvent-randomized>`_".
