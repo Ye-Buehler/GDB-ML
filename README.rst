@@ -53,13 +53,13 @@ General usage:
 Transformer Examples
 -----------------------
 
-(1) Follow the pipeline and tokenize the SMILES:
+**(1) Follow the pipeline and tokenize the SMILES:**
 
 .. code-block:: bash
 
    # See pipeline.ipynb
 
-(2) Preprocess the data:
+**(2) Preprocess the data:**
 
 .. code-block:: bash
 
@@ -92,7 +92,7 @@ Transformer Examples
         -share_vocab -lower
 
 
-(3) Train the Transformer model:
+**(3) Train the Transformer model:**
 
 .. code-block:: bash
 
@@ -142,7 +142,7 @@ Transformer Examples
         -tensorboard_log_dir experiments/Tensorboard/${experiment}/
 
 
-(4) Molecular generation:
+**(4) Molecular generation:**
 
 .. code-block:: bash
 
@@ -161,33 +161,33 @@ Transformer Examples
 Generative Models Examples
 -----------------------------
 
-(1) Create a Conda environment with the provided `.yaml` file and activate it:
+**(1) Create a Conda environment with the provided `.yaml` file and activate it:**
 
 .. code-block:: bash
 
     conda env create -f environment-py39.yaml
     conda activate reinvent-gdb13-py39
 
-(2) Create a working directory:
+**(2) Create a working directory:**
 
 .. code-block:: bash
 
     mkdir -p node18_randomized/models
 
-(3) Create random SMILES:
+**(3) Create random SMILES:**
 
 .. code-block:: bash
 
     ./create_randomized_smiles.py -i training_sets/1M_node18_train.txt -o node18_randomized/training -n 100
     ./create_randomized_smiles.py -i training_sets/1M_node18_validation.txt -o node18_randomized/validation -n 100
 
-(4) Create a blank model file:
+**(4) Create a blank model file:**
 
 .. code-block:: bash
 
     ./create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
 
-(5) Train the generative model with specified parameters:
+**(5) Train the generative model with specified parameters:**
 
 .. code-block:: bash
 
@@ -200,7 +200,7 @@ Generative Models Examples
         --csv node18_randomized/validation \
         --csn 75000
 
-(6) Sample an already trained model for a given number of SMILES (also retrieves log-likelihoods):
+**(6) Sample an already trained model for a given number of SMILES (also retrieves log-likelihoods):**
 
 .. code-block:: bash
 
