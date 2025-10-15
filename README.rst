@@ -38,10 +38,6 @@ Main codes and files for GDB-20 machine-learning-based project:
            ├── gdb20_data
            └── gdb20_models
 
-* Free software: MIT license
-* Documentation: https://gdb-ml.readthedocs.io.
-
-
 
 Original OpenNMT-py:
 --------
