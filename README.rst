@@ -32,9 +32,18 @@ Main codes and files for GDB-20 machine-learning-based project:
     |      ├── graph_mapping.py
     |      └── properties_calculator.py
     ├── transformer/
+    |      ├── pipeline.ipynb
+    |      ├── preprocess.py
+    |      ├── train.py
+    |      ├── translate.py
     |      ├── gdb20_data
     |      └── gdb20_model
     └── generative_models/
+           ├── create_randomized_smiles.py
+           ├── create_model.py
+           ├── train_model.py
+           ├── sample_from_model.py
+           ├── calculate_nlls.py
            ├── gdb20_data
            └── gdb20_models
 
