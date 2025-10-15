@@ -50,42 +50,45 @@ Main codes and files for GDB-20 machine-learning-based project:
 General usage:
 ========================================================================================
 
-1. Transformer examples
---------------------
+1. Transformer Examples
+-----------------------
+
 (1) **Follow the pipeline and tokenize the SMILES:**
 
-  See ``pipeline.ipynb``
+See ``pipeline.ipynb``
 
 (2) **Preprocess the data:**
-  .. code-block:: bash
 
-      # Activate environment
-      conda activate opennmt
+.. code-block:: bash
 
-      # Define variables
-      dataset="test36"
-      experiment="exp36"
+    # Activate environment
+    conda activate opennmt
 
-      batchsize=6144 
-      dropout=0.1 
-      rnnsize=384 
-      wordvecsize=384 
-      learnrate=2 
-      layers=4 
-      heads=8
+    # Define variables
+    dataset="test36"
+    experiment="exp36"
 
-      mkdir -p data/voc_${experiment}
+    batchsize=6144
+    dropout=0.1
+    rnnsize=384
+    wordvecsize=384
+    learnrate=2
+    layers=4
+    heads=8
 
-      # Run preprocessing
-      python preprocess.py \
-          -train_src data/${dataset}/shuffled_train_keys_canonical_concatenated_tokenized.txt \
-          -train_tgt data/${dataset}/shuffled_train_values_canonical_concatenated_tokenized.txt \
-          -valid_src data/${dataset}/shuffled_val_keys_canonical_concatenated_tokenized.txt \
-          -valid_tgt data/${dataset}/shuffled_val_values_canonical_concatenated_tokenized.txt \
-          -save_data data/voc_${experiment}/Preprocessed \
-          -src_seq_length 3000 -tgt_seq_length 3000 \
-          -src_vocab_size 3000 -tgt_vocab_size 3000 \
-          -share_vocab -lower
+    mkdir -p data/voc_${experiment}
+
+    # Run preprocessing
+    python preprocess.py \
+        -train_src data/${dataset}/shuffled_train_keys_canonical_concatenated_tokenized.txt \
+        -train_tgt data/${dataset}/shuffled_train_values_canonical_concatenated_tokenized.txt \
+        -valid_src data/${dataset}/shuffled_val_keys_canonical_concatenated_tokenized.txt \
+        -valid_tgt data/${dataset}/shuffled_val_values_canonical_concatenated_tokenized.txt \
+        -save_data data/voc_${experiment}/Preprocessed \
+        -src_seq_length 3000 -tgt_seq_length 3000 \
+        -src_vocab_size 3000 -tgt_vocab_size 3000 \
+        -share_vocab -lower
+
 
 (3) **Train the Transformer model:**
 
@@ -137,6 +140,7 @@ General usage:
         -gpu_ranks 0 \
         -tensorboard \
         -tensorboard_log_dir experiments/Tensorboard/${experiment}/
+
 
 (4) **Molecular Generation:**
 
