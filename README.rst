@@ -18,13 +18,12 @@ GDB-ML directory structure::
 .. code-block:: text
 
     GDB-ML/
-    ├── transformer
-    │   ├── authors.rst
-    │   ├── conf.py
-    │   └──
+    ├── transformer/
+    │   ├── gdb20_data
+    │   └── gdb20_model
     └── generative_models/
-        ├── gdb_ml-0.1.0-py3-none-any.whl
-        └── gdb_ml-0.1.0.tar.gz
+        ├── gdb20_data
+        └── gdb20_models
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
