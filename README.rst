@@ -15,7 +15,14 @@ GDB-ML contains all the utils for a GDB machine-learning-based project.
 
 GDB-ML directory structure::
 
-::
+.. code-block:: text
+
+    Molecular Complexity/
+    └── notebook/
+        ├── MC1_MC2_calculation.ipynb
+        └── Other_8_metrics.ipynb
+
+
 
     GDB-ML/
         transformer/
