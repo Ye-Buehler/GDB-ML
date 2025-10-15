@@ -50,7 +50,7 @@ Main codes and files for GDB-20 machine-learning-based project:
 General usage:
 ========================================================================================
 
-Transformer examples
+1. Transformer examples
 --------------------
 
 * **Follow the pipeline and tokenize the SMILES:**
@@ -84,8 +84,130 @@ Transformer examples
           -share_vocab -lower
 
 
-Generative models examples:
---------
+(2) Train the Transformer model
+-------------------------------
+
+**Shell script:**
+
+.. code-block:: bash
+
+    python train.py \
+        -data data/voc_${experiment}/Preprocessed \
+        -save_model experiments/checkpoints/${experiment}/${dataset}_model \
+        -seed 42 \
+        -save_checkpoint_steps 500 \
+        -keep_checkpoint 50 \
+        -train_steps 500000 \
+        -param_init 0 \
+        -param_init_glorot \
+        -max_generator_batches 32 \
+        -batch_size ${batchsize} \
+        -batch_type tokens \
+        -normalization tokens \
+        -max_grad_norm 0 \
+        -accum_count 4 \
+        -optim adam \
+        -adam_beta1 0.9 \
+        -adam_beta2 0.998 \
+        -decay_method noam \
+        -warmup_steps 8000 \
+        -learning_rate ${learnrate} \
+        -label_smoothing 0.0 \
+        -layers 4 \
+        -rnn_size ${rnnsize} \
+        -word_vec_size ${wordvecsize} \
+        -encoder_type transformer \
+        -decoder_type transformer \
+        -dropout ${dropout} \
+        -position_encoding \
+        -global_attention general \
+        -global_attention_function softmax \
+        -self_attn_type scaled-dot \
+        -heads 8 \
+        -transformer_ff 2048 \
+        -valid_steps 500 \
+        -valid_batch_size 4 \
+        -report_every 500 \
+        -log_file data/Training_LOG_${experiment}.txt \
+        -early_stopping 10 \
+        -early_stopping_criteria accuracy \
+        -world_size 1 \
+        -gpu_ranks 0 \
+        -tensorboard \
+        -tensorboard_log_dir experiments/Tensorboard/${experiment}/
+
+
+(3) Molecular Generation
+------------------------
+
+**Shell script:**
+
+.. code-block:: bash
+
+    python translate.py \
+        -model "$MODEL_PATH" \
+        -src "$SRC_FILE" \
+        -output "$OUTPUT_FILE" \
+        -batch_size 64 \
+        -replace_unk \
+        -max_length 1000 \
+        -log_probs \
+        -beam_size 300 \
+        -n_best 300
+
+
+2. Generative Models Examples
+-----------------------------
+
+(1) **Create a Conda environment** with the provided `.yaml` file and activate it:
+
+.. code-block:: bash
+
+    conda env create -f environment-py39.yaml
+    conda activate reinvent-gdb13-py39
+
+(2) **Create a working directory:**
+
+.. code-block:: bash
+
+    mkdir -p node18_randomized/models
+
+(3) **Create random SMILES:**
+
+.. code-block:: bash
+
+    ./create_randomized_smiles.py -i training_sets/1M_node18_train.txt -o node18_randomized/training -n 100
+    ./create_randomized_smiles.py -i training_sets/1M_node18_validation.txt -o node18_randomized/validation -n 100
+
+(4) **Create a blank model file:**
+
+.. code-block:: bash
+
+    ./create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
+
+(5) **Train the generative model with specified parameters:**
+
+.. code-block:: bash
+
+    ./train_model.py \
+        -i node18_randomized/models/model.empty \
+        -o node18_randomized/models/model.trained \
+        -s node18_randomized/training \
+        -e 100 --lrm ada \
+        --csl node18_randomized/tensorboard \
+        --csv node18_randomized/validation \
+        --csn 75000
+
+(7) **Sample an already trained model** for a given number of SMILES (also retrieves log-likelihoods):
+
+.. code-block:: bash
+
+    ./sample_from_model.py \
+        -m node18_randomized/models/model.trained.100 \
+        -n 1000000 \
+        --with-nll \
+        -o output.txt
+
 
 
 Original OpenNMT-py:
