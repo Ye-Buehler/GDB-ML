@@ -25,8 +25,8 @@ Main codes and files for GDB-20 machine-learning-based project:
 .. code-block:: text
 
     GDB-ML/
-    ├── transformer/
-    |   └── src
+    ├── src/
+    |   └── gdb_ml/
     |      ├── chem_utils.py
     |      ├── data_processor.py
     |      ├── graph_mapping.py
