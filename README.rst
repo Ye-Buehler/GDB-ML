@@ -15,15 +15,15 @@ GDB-ML contains all the utils for a GDB machine-learning-based project.
 
 GDB-ML directory structure::
 
-.. code-block:: text
+::
 
     GDB-ML/
-    ├── transformer/
-    │   ├── gdb20_data
-    │   └── gdb20_model
-    └── generative_models/
-        ├── gdb20_data
-        └── gdb20_models
+        transformer/
+            gdb20_data
+            gdb20_model
+        generative_models/
+            gdb20_data
+            gdb20_models
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
