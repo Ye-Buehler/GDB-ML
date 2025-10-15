@@ -18,20 +18,14 @@ GDB-ML directory structure::
 
 .. code-block:: text
 
-    Molecular Complexity/
-    └── notebook/
-        ├── MC1_MC2_calculation.ipynb
-        └── Other_8_metrics.ipynb
-
-
 
     GDB-ML/
-        transformer/
-            gdb20_data
-            gdb20_model
-        generative_models/
-            gdb20_data
-            gdb20_models
+    ├── transformer/
+        ├── gdb20_data
+        └── gdb20_model
+    └── generative_models/
+        ├── gdb20_data
+        └── gdb20_models
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
