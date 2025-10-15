@@ -215,7 +215,7 @@ Generative Models Examples:
 Original OpenNMT-py:
 --------
 
-* If you reuse this code please also cite the underlying code framework: "`OpenNMT technical report <https://www.aclweb.org/anthology/P17-4012>`_" and "`Enzymatic_Transformer <https://github.com/reymond-group/OpenNMT-py>`_".
+* If you reuse this code please also cite the underlying code frameworks: "`OpenNMT technical report <https://www.aclweb.org/anthology/P17-4012>`_" and "`Enzymatic_Transformer <https://github.com/reymond-group/OpenNMT-py>`_".
 
 Original Reinvent-Randomized:
 --------
