@@ -39,7 +39,7 @@ Main codes and files for GDB-20 machine-learning-based project:
 Original OpenNMT-py:
 --------
 
-* If you reuse this code please also cite the underlying code framework: "`OpenNMT technical report <https://www.aclweb.org/anthology/P17-4012/)>`_".
+* If you reuse this code please also cite the underlying code framework: "`OpenNMT technical report <https://www.aclweb.org/anthology/P17-4012/>`_".
 
 
 License
