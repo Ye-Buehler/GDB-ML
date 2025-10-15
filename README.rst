@@ -15,46 +15,16 @@ GDB-ML contains all the utils for a GDB machine-learning-based project.
 
 GDB-ML directory structure::
 
-    GDB-ML
-    ├── AUTHORS.rst  
-    ├── CODE_OF_CONDUCT.rst  
-    ├── CONTRIBUTING.rst  
-    ├── dist
-    │   ├── gdb_ml-0.1.0-py3-none-any.whl
-    │   └── gdb_ml-0.1.0.tar.gz
-    ├── docs
+.. code-block:: text
+
+    GDB-ML/
+    ├── transformer
     │   ├── authors.rst
     │   ├── conf.py
-    │   ├── contributing.rst
-    │   ├── history.rst
-    │   ├── index.rst
-    │   ├── installation.rst
-    │   ├── make.bat
-    │   ├── Makefile
-    │   ├── readme.rst
-    │   └── usage.rst
-    ├── HISTORY.rst
-    ├── LICENSE
-    ├── Makefile
-    ├── MANIFEST.in
-    ├── pyproject.toml
-    ├── README.rst
-    ├── requirements_dev.txt
-    ├── ruff.toml
-    ├── src
-    │   ├── gdb_ml
-    │   │   ├── gdb_ml.py
-    │   │   └── __init__.py
-    │   └── gdb_ml.egg-info
-    │       ├── dependency_links.txt
-    │       ├── PKG-INFO
-    │       ├── requires.txt
-    │       ├── SOURCES.txt
-    │       └── top_level.txt
-    ├── tests
-    │   ├── __init__.py
-    │   └── test_gdb_ml.py
-    └── tox.ini
+    │   └──
+    └── generative_models/
+        ├── gdb_ml-0.1.0-py3-none-any.whl
+        └── gdb_ml-0.1.0.tar.gz
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
