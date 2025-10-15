@@ -50,7 +50,7 @@ Main codes and files for GDB-20 machine-learning-based project:
 General usage:
 ========================================================================================
 
-1. Transformer Examples
+Transformer Examples
 -----------------------
 
 (1) **Follow the pipeline and tokenize the SMILES:**
@@ -91,8 +91,6 @@ See ``pipeline.ipynb``
 
 
 (3) **Train the Transformer model:**
-
-**Shell script:**
 
 .. code-block:: bash
 
@@ -144,8 +142,6 @@ See ``pipeline.ipynb``
 
 (4) **Molecular Generation:**
 
-**Shell script:**
-
 .. code-block:: bash
 
     python translate.py \
@@ -160,7 +156,7 @@ See ``pipeline.ipynb``
         -n_best 300
 
 
-2. Generative Models Examples
+Generative Models Examples
 -----------------------------
 
 (1) **Create a Conda environment** with the provided `.yaml` file and activate it:
