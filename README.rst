@@ -47,6 +47,8 @@ Main codes and files for GDB-20 machine-learning-based project:
            ├── gdb20_data
            └── gdb20_models
 
+General Usage:
+========================================================================================
 Transformer examples:
 --------
 * Follow the pipeline and tokenize the SMILES:
