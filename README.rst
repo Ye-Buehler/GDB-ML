@@ -14,6 +14,7 @@ GDB-ML
 GDB-ML contains all the utils for a GDB machine-learning-based project.
 
 GDB-ML directory structure::
+========================================================================================
 
 .. code-block:: text
 
