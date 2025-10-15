@@ -50,7 +50,7 @@ Main codes and files for GDB-20 machine-learning-based project:
 General usage:
 ========================================================================================
 
-Transformer Examples
+Transformer examples:
 -----------------------
 
 **(1) Follow the pipeline and tokenize the SMILES:**
@@ -92,7 +92,7 @@ Transformer Examples
         -share_vocab -lower
 
 
-**(3) Train the Transformer model:**
+**(3) Train the transformer model:**
 
 .. code-block:: bash
 
@@ -158,7 +158,7 @@ Transformer Examples
         -n_best 300
 
 
-Generative Models Examples
+Generative models examples:
 -----------------------------
 
 **(1) Create a Conda environment with the provided `.yaml` file and activate it:**
