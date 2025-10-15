@@ -52,13 +52,11 @@ General usage:
 
 1. Transformer examples
 --------------------
-
-* **Follow the pipeline and tokenize the SMILES:**
+(1) **Follow the pipeline and tokenize the SMILES:**
 
   See ``pipeline.ipynb``
 
-* **Preprocess the data:**
-
+(2) **Preprocess the data:**
   .. code-block:: bash
 
       # Activate environment
@@ -68,7 +66,13 @@ General usage:
       dataset="test36"
       experiment="exp36"
 
-      batchsize=6144 dropout=0.1 rnnsize=384 wordvecsize=384 learnrate=2 layers=4 heads=8
+      batchsize=6144 
+      dropout=0.1 
+      rnnsize=384 
+      wordvecsize=384 
+      learnrate=2 
+      layers=4 
+      heads=8
 
       mkdir -p data/voc_${experiment}
 
@@ -83,9 +87,7 @@ General usage:
           -src_vocab_size 3000 -tgt_vocab_size 3000 \
           -share_vocab -lower
 
-
-(2) Train the Transformer model
--------------------------------
+(3) **Train the Transformer model:**
 
 **Shell script:**
 
@@ -136,9 +138,7 @@ General usage:
         -tensorboard \
         -tensorboard_log_dir experiments/Tensorboard/${experiment}/
 
-
-(3) Molecular Generation
-------------------------
+(4) **Molecular Generation:**
 
 **Shell script:**
 
@@ -198,7 +198,7 @@ General usage:
         --csv node18_randomized/validation \
         --csn 75000
 
-(7) **Sample an already trained model** for a given number of SMILES (also retrieves log-likelihoods):
+(6) **Sample an already trained model** for a given number of SMILES (also retrieves log-likelihoods):
 
 .. code-block:: bash
 
