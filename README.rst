@@ -26,11 +26,17 @@ Main codes and files for GDB-20 machine-learning-based project:
 
     GDB-ML/
     ├── transformer/
-        ├── gdb20_data
-        └── gdb20_model
+    |   └── src
+    |      ├── chem_utils.py
+    |      ├── data_processor.py
+    |      ├── graph_mapping.py
+    |      └── properties_calculator.py
+    ├── transformer/
+    |      ├── gdb20_data
+    |      └── gdb20_model
     └── generative_models/
-        ├── gdb20_data
-        └── gdb20_models
+           ├── gdb20_data
+           └── gdb20_models
 
 * Free software: MIT license
 * Documentation: https://gdb-ml.readthedocs.io.
