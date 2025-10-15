@@ -1,5 +1,5 @@
 ======
-GDB-ML
+GDB-20 XXX
 ======
 
 
@@ -10,14 +10,19 @@ GDB-ML
         :target: https://gdb-ml.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
+Thank you for your interest in this repository, which complements the publication 
+"`GDB-20: XXX <https://XXX>`_".
 
-GDB-ML contains all the utils for a GDB machine-learning-based project.
+.. image:: https://github.com/Ye-Buehler/XXX.jpg
+   :alt: GA
+   :align: center
+   :width: 400px
 
-GDB-ML directory structure::
+
+Main codes and files for GDB-20 machine-learning-based project:
 ========================================================================================
 
 .. code-block:: text
-
 
     GDB-ML/
     ├── transformer/
@@ -31,10 +36,17 @@ GDB-ML directory structure::
 * Documentation: https://gdb-ml.readthedocs.io.
 
 
-Features
+Original OpenNMT-py:
 --------
 
-* TODO
+* If you reuse this code please also cite the underlying code framework:
+[OpenNMT technical report](https://www.aclweb.org/anthology/P17-4012/)
+
+License
+--------
+
+* Free software: MIT license
+
 
 Credits
 -------
