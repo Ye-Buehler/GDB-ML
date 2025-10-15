@@ -19,7 +19,7 @@ Thank you for your interest in this repository, which complements the publicatio
    :width: 400px
 
 
-Main codes and files for GDB-20 machine-learning-based project:
+Main Codes and Files for GDB-20 Machine-Learning-Based Project:
 ========================================================================================
 
 .. code-block:: text
@@ -47,10 +47,10 @@ Main codes and files for GDB-20 machine-learning-based project:
            ├── gdb20_data
            └── gdb20_models
 
-General usage:
+General Usage:
 ========================================================================================
 
-Transformer examples:
+Transformer Examples:
 -----------------------
 
 **(1) Follow the pipeline and tokenize the SMILES:**
@@ -158,7 +158,7 @@ Transformer examples:
         -n_best 300
 
 
-Generative models examples:
+Generative Models Examples:
 -----------------------------
 
 **(1) Create a Conda environment with the provided `.yaml` file and activate it:**
