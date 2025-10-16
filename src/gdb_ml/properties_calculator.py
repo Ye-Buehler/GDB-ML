@@ -657,19 +657,6 @@ class PropertiesCalculator:
         df_filtered[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE}")
 
-
-    # TODO: MOSES-clogP
-    def clogp(self, smiles):
-        """
-        Compute clogP (Wildman-Crippen logP) for a SMILES string.
-        Returns None if the molecule is invalid.
-        """
-        mol = Chem.MolFromSmiles(smiles)
-        if mol is None:
-            return None
-
-        return round(Crippen.MolLogP(mol), 2)
-
     # TODO: MOSES-NP
     def npscore(self, smiles):
         """
