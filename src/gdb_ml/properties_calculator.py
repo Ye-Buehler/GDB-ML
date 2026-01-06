@@ -556,36 +556,59 @@ class PropertiesCalculator:
         filter9 = self.has_atom_in_three_rings(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
+        results = {
+            "has_small_rings_failed": 0,
+            "divalent_nodes_fraction_failed": 0,
+            "threeringcheck_failed": 0,
+            "ring_size_check_failed": 0,
+            "has_atom_in_three_rings": 0,
+            "non_aromatic_double_bond_filter_failed": 0,
+            "if_NO_NN_in_non_aromatic_ring_or_acyclic_failed": 0,
+            "if_contain_OCO_failed": 0,
+            "if_contain_N3ring_failed": 0,
+            "logp_failed": 0,
+        }
+        
         if filter7 == True:
             pass_check = False
-            print("Failed: has_small_rings")
+            results[has_small_rings_failed] += 1
+            # print("Failed: has_small_rings")
         elif filter10 <= 0.4:
             pass_check = False
-            print("Failed: divalent_nodes_fraction")
+            results[divalent_nodes_fraction_failed] += 1
+            # print("Failed: divalent_nodes_fraction")
         elif filter6 == False:
             pass_check = False
-            print("Failed: threeringcheck")
+            results[threeringcheck_failed] += 1
+            # print("Failed: threeringcheck")
         elif filter8 == False:
             pass_check = False
-            print("Failed: ring_size_check")
+            results[ring_size_check_failed] += 1
+            # print("Failed: ring_size_check")
         elif filter9 == True:
             pass_check = False
-            print("Failed: has_atom_in_three_rings")
+            results[has_atom_in_three_ring] += 1
+            # print("Failed: has_atom_in_three_rings")
         elif filter1 == False:
             pass_check = False
-            print("Failed: non_aromatic_double_bond_filter")
+            results[non_aromatic_double_bond_filter_failed] += 1
+            # print("Failed: non_aromatic_double_bond_filter")
         elif filter3 == True:
             pass_check = False
-            print("Failed: if_NO_NN_in_non_aromatic_ring_or_acyclic")
+            results[if_NO_NN_in_non_aromatic_ring_or_acyclic_failed] += 1
+            # print("Failed: if_NO_NN_in_non_aromatic_ring_or_acyclic")
         elif filter4 == True:
             pass_check = False
-            print("Failed: if_contain_OCO")
+            results[if_contain_OCO_failed] += 1
+            # print("Failed: if_contain_OCO")
         elif filter5 == True:
             pass_check = False
-            print("Failed: if_contain_N3ring")
+            results[if_contain_N3ring_failed] += 1
+            # print("Failed: if_contain_N3ring")
         elif filter2 < 0:
             pass_check = False
-            print("Failed: logp")
+            results[logp_failed] += 1
+            # print("Failed: logp")
 
         return pass_check
 
