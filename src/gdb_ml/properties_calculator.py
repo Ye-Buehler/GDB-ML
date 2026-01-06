@@ -543,17 +543,17 @@ class PropertiesCalculator:
     # TODO: Check undesired functional group
     def undesired_FG_check_print(self, smiles):
         pass_check = True
-        print("For molecule:", smiles )
-        
-        filter1 = self.non_aromatic_double_bond_filter(smiles)
-        filter2 = self.logp(smiles)
-        filter3 = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
-        filter4 = self.if_contain_OCO(smiles)
-        filter5 = self.if_contain_N3ring(smiles)
-        filter6 = self.threeringcheck(smiles)
-        filter7 = self.has_small_rings(smiles)
-        filter8 = self.ring_size_check(smiles)
-        filter9 = self.has_atom_in_three_rings(smiles)
+        print("For molecule:", smiles)
+
+        filter1  = self.non_aromatic_double_bond_filter(smiles)
+        filter2  = self.logp(smiles)
+        filter3  = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
+        filter4  = self.if_contain_OCO(smiles)
+        filter5  = self.if_contain_N3ring(smiles)
+        filter6  = self.threeringcheck(smiles)
+        filter7  = self.has_small_rings(smiles)
+        filter8  = self.ring_size_check(smiles)
+        filter9  = self.has_atom_in_three_rings(smiles)
         filter10 = self.divalent_nodes_fraction(smiles)
 
         results = {
@@ -561,54 +561,53 @@ class PropertiesCalculator:
             "divalent_nodes_fraction_failed": 0,
             "threeringcheck_failed": 0,
             "ring_size_check_failed": 0,
-            "has_atom_in_three_rings": 0,
+            "has_atom_in_three_rings_failed": 0,
             "non_aromatic_double_bond_filter_failed": 0,
             "if_NO_NN_in_non_aromatic_ring_or_acyclic_failed": 0,
             "if_contain_OCO_failed": 0,
             "if_contain_N3ring_failed": 0,
             "logp_failed": 0,
         }
-        
-        if filter7 == True:
+
+        if filter7 is True:
             pass_check = False
-            results[has_small_rings_failed] += 1
-            # print("Failed: has_small_rings")
+            results["has_small_rings_failed"] += 1
+
         elif filter10 <= 0.4:
             pass_check = False
-            results[divalent_nodes_fraction_failed] += 1
-            # print("Failed: divalent_nodes_fraction")
-        elif filter6 == False:
+            results["divalent_nodes_fraction_failed"] += 1
+
+        elif filter6 is False:
             pass_check = False
-            results[threeringcheck_failed] += 1
-            # print("Failed: threeringcheck")
-        elif filter8 == False:
+            results["threeringcheck_failed"] += 1
+
+        elif filter8 is False:
             pass_check = False
-            results[ring_size_check_failed] += 1
-            # print("Failed: ring_size_check")
-        elif filter9 == True:
+            results["ring_size_check_failed"] += 1
+
+        elif filter9 is True:
             pass_check = False
-            results[has_atom_in_three_ring] += 1
-            # print("Failed: has_atom_in_three_rings")
-        elif filter1 == False:
+            results["has_atom_in_three_rings_failed"] += 1
+
+        elif filter1 is False:
             pass_check = False
-            results[non_aromatic_double_bond_filter_failed] += 1
-            # print("Failed: non_aromatic_double_bond_filter")
-        elif filter3 == True:
+            results["non_aromatic_double_bond_filter_failed"] += 1
+
+        elif filter3 is True:
             pass_check = False
-            results[if_NO_NN_in_non_aromatic_ring_or_acyclic_failed] += 1
-            # print("Failed: if_NO_NN_in_non_aromatic_ring_or_acyclic")
-        elif filter4 == True:
+            results["if_NO_NN_in_non_aromatic_ring_or_acyclic_failed"] += 1
+
+        elif filter4 is True:
             pass_check = False
-            results[if_contain_OCO_failed] += 1
-            # print("Failed: if_contain_OCO")
-        elif filter5 == True:
+            results["if_contain_OCO_failed"] += 1
+
+        elif filter5 is True:
             pass_check = False
-            results[if_contain_N3ring_failed] += 1
-            # print("Failed: if_contain_N3ring")
+            results["if_contain_N3ring_failed"] += 1
+
         elif filter2 < 0:
             pass_check = False
-            results[logp_failed] += 1
-            # print("Failed: logp")
+            results["logp_failed"] += 1
 
         return pass_check, results
 
