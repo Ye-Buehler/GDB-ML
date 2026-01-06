@@ -543,8 +543,7 @@ class PropertiesCalculator:
     # TODO: Check undesired functional group
     def undesired_FG_check_print(self, smiles):
         pass_check = True
-        print("For molecule:", smiles)
-
+        
         filter1  = self.non_aromatic_double_bond_filter(smiles)
         filter2  = self.logp(smiles)
         filter3  = self.if_NO_NN_in_non_aromatic_ring_or_acyclic(smiles)
