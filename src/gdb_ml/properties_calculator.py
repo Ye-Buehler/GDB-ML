@@ -610,7 +610,7 @@ class PropertiesCalculator:
             results[logp_failed] += 1
             # print("Failed: logp")
 
-        return pass_check
+        return pass_check, results
 
 
 
