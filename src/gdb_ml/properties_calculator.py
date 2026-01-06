@@ -606,13 +606,6 @@ class PropertiesCalculator:
         df_failed[['SMILES', 'Log Prob']].to_csv(FILE_PATH_SAVE_FAILED, sep='\t', header=False, index=False)
         print(f"File saved successfully to {FILE_PATH_SAVE_FAILED}")
 
-
-    # TODO: show the details of the failed molecules
-    def show_undesired_FG_details(self, df):
-        df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check_print)
-
-
-
     # TODO: Check the four properties
     def multi_qed_sas_fsp3_cf(self, FILE_PATH_READ, FILE_PATH_SAVE_QED_SAS_FSP3_CF):
         df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
