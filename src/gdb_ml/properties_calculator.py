@@ -608,9 +608,7 @@ class PropertiesCalculator:
 
 
     # TODO: show the details of the failed molecules
-    def show_undesired_FG_details(self, FILE_PATH_READ):
-        df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
-
+    def show_undesired_FG_details(self, df):
         df['Filter1-10'] = df['SMILES'].apply(self.undesired_FG_check_print)
 
 
