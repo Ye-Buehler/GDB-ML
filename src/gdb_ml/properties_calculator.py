@@ -953,4 +953,34 @@ class PropertiesCalculator:
             return max((len(r) for r in sssr), default=0)
         except Exception:
             return 0
+            
+    def passes_no_non_aromatic_sulfur_except_SO2(self, smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return False
+
+        for s in mol.GetAtoms():
+            if s.GetSymbol() != "S":
+                continue
+
+            # Aromatic sulfur is always allowed
+            if s.GetIsAromatic():
+                continue
+
+            oxo = 0
+            for bond in s.GetBonds():
+                o = bond.GetOtherAtom(s)
+                if o.GetSymbol() != "O":
+                    continue
+
+                if bond.GetBondType() == Chem.BondType.DOUBLE:
+                    oxo += 1
+                elif bond.GetBondType() == Chem.BondType.SINGLE and o.GetFormalCharge() == -1:
+                    oxo += 1
+
+            # Strict SO2 requirement
+            if oxo != 2:
+                return False
+
+        return True
         
