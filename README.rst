@@ -11,7 +11,7 @@ Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI
         :alt: Documentation Status
 
 Thank you for your interest in this repository, which complements the publication 
-"`GDB-20: XXX <https://XXX>`_".
+"`Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI models <https://XXX>`_".
 
 .. image:: https://github.com/Ye-Buehler/XXX.jpg
    :alt: GA
