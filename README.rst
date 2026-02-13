@@ -1,5 +1,5 @@
 ======
-GDB-20 XXX
+Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI models 
 ======
 
 
