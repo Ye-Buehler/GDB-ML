@@ -1,5 +1,5 @@
 ======
-Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI models 
+Sampling a GDB-20 database of 32 trillion drug-like molecules by generative artificial intelligence 
 ======
 
 
@@ -11,7 +11,7 @@ Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI
         :alt: Documentation Status
 
 Thank you for your interest in this repository, which complements the publication 
-"`Sampling a 32 trillion GDB-20 dataset of drug-like molecules using generative AI models <https://XXX>`_".
+"`Sampling a GDB-20 database of 32 trillion drug-like molecules by generative artificial intelligence <https://XXX>`_".
 
 .. image:: https://github.com/Ye-Buehler/XXX.jpg
    :alt: GA
