@@ -13,7 +13,7 @@ Sampling a GDB-20 database of 32 trillion drug-like molecules by generative arti
 Thank you for your interest in this repository, which complements the publication 
 "`Sampling a GDB-20 database of 32 trillion drug-like molecules by generative artificial intelligence <https://XXX>`_".
 
-.. image:: https://github.com/Ye-Buehler/XXX.jpg
+.. image:: https://github.com/Ye-Buehler/GDB-ML/blob/main/docs/GA.jpg
    :alt: GA
    :align: center
    :width: 400px
