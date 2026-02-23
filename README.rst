@@ -18,6 +18,20 @@ Thank you for your interest in this repository, which complements the publicatio
    :align: center
    :width: 400px
 
+GDB-20s Database:
+========================================================================================
+
+**Zenodo Part 1:**
+
+.. code-block:: bash
+
+   # See https://zenodo.org/records/17368725.
+
+**(Zenodo Part 2:**
+
+.. code-block:: bash
+
+    # See https://zenodo.org/records/17375415.
 
 Main Codes and Files for GDB-20 Machine-Learning-Based Project:
 ========================================================================================
