@@ -27,7 +27,7 @@ GDB-20s Database:
 
    # See https://zenodo.org/records/17368725.
 
-**(Zenodo Part 2:**
+**Zenodo Part 2:**
 
 .. code-block:: bash
 
