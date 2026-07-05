@@ -64,6 +64,37 @@ General Usage:
 Transformer Examples:
 -----------------------
 
+OpenNMT-py Installation:
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+OpenNMT-py requires:
+
+* Python >= 3.8
+* PyTorch >= 2.0, < 2.2
+
+Install OpenNMT-py from pip:
+
+.. code-block:: bash
+
+    pip install OpenNMT-py
+
+or from the source:
+
+.. code-block:: bash
+
+    git clone https://github.com/OpenNMT/OpenNMT-py.git
+    cd OpenNMT-py
+    pip install -e .
+
+Note: if you encounter a ``MemoryError`` during installation, try to use pip with ``--no-cache-dir``.
+
+Optional: some advanced features, such as working with pretrained models or specific transforms,
+require extra packages. You can install them with:
+
+.. code-block:: bash
+
+    pip install -r requirements.opt.txt
+
 **(1) Follow the pipeline and tokenize the SMILES:**
 
 .. code-block:: bash
@@ -171,6 +202,13 @@ Transformer Examples:
 
 Generative Models Examples:
 -----------------------------
+
+System Dependency:
+~~~~~~~~~~~~~~~~~~
+
+PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
+``JAVA_HOME`` is set before running scripts that use PySpark.
+
 
 **(1) Create a Conda environment with the provided `.yaml` file and activate it:**
 
