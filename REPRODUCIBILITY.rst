@@ -501,3 +501,19 @@ Option meanings for ``sample_from_model.py``:
    * - ``--use-gzip``
      - Compress the output file with gzip.
 
+
+Reproducibility Boundary
+========================
+
+This repository supports rerunning the published training and sampling
+workflows from the released intermediate files. It includes:
+
+* source code and executable scripts;
+* tokenized transformer input files in ``transformer/gdb20_data/``;
+* generative-model input files in ``generative_models/gdb20_data/``;
+* trained model artifacts in ``transformer/gdb20_model/`` and
+  ``generative_models/gdb20_models/``.
+
+This repository does not support regenerating the graph-selection step from those
+earliest intermediate objects. However, to improve transparency, this document describes 
+the graph-selection logic implemented in ``src/gdb_ml/graph_mapping.py``.
