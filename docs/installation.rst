@@ -4,27 +4,6 @@
 Installation
 ============
 
-
-Stable release
---------------
-
-To install GDB-ML, run this command in your terminal:
-
-.. code-block:: console
-
-    $ git clone https://github.com/Ye-Buehler/GDB-ML.git
-    $ cd GDB-ML
-    $ python -m pip install -e .
-
-This is the preferred method to install GDB-ML, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
-
-
 From sources
 ------------
 
