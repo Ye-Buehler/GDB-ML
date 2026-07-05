@@ -2,7 +2,6 @@ import pandas as pd
 from rdkit import Chem
 import ast
 import re
-import sys
 import os
 from tqdm import tqdm
 from pandarallel import pandarallel
