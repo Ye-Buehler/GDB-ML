@@ -14,6 +14,8 @@ You can either clone the public repository:
 .. code-block:: console
 
     $ git clone git://github.com/Ye-Buehler/gdb_ml
+    $ cd GDB-ML
+    $ python -m pip install -e .
 
 Or download the `tarball`_:
 
