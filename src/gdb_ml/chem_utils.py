@@ -41,17 +41,8 @@ class ChemUtils:
         updated_smiles = updated_smiles.replace('.[Cl-]', '')
         updated_smiles = updated_smiles.replace('.[Br-]', '')
         updated_smiles = updated_smiles.replace('.[I-]', '')
-        #updated_smiles = updated_smiles.replace('F', 'C')
         updated_smiles = updated_smiles.replace('Cl', 'C')
         updated_smiles = updated_smiles.replace('Br', 'C')
-        #updated_smiles = updated_smiles.replace('I', 'C')
-        #updated_smiles = updated_smiles.replace('N', 'C')
-        #updated_smiles = updated_smiles.replace('O', 'C')
-        #updated_smiles = updated_smiles.replace('P', 'C')
-        #updated_smiles = updated_smiles.replace('S', 'C')
-        #updated_smiles = updated_smiles.replace('c', 'C')
-        #updated_smiles = updated_smiles.replace('n', 'C')
-        #updated_smiles = updated_smiles.replace('o', 'C')
         updated_smiles = re.sub('\[.*?\]', 'C', updated_smiles)
         updated_smiles = re.sub('[A-Za-z]', 'C', updated_smiles)
         updated_smiles = updated_smiles.replace('-', '')
@@ -73,8 +64,7 @@ class ChemUtils:
 
         # Generate and count unique randomized SMILES
         unique_smiles_set = generate_randomized_smiles(smiles, num_randomizations=100)
-        # print("Number of unique randomized SMILES:", len(unique_smiles_set))
-        # print("Unique randomized SMILES:", unique_smiles_set)
+
         # Randomly pick one element
         random_one_smiles = random.choice(list(unique_smiles_set))
 
