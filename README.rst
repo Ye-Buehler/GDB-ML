@@ -3,9 +3,6 @@ Sampling a GDB-20 database of 32 trillion drug-like molecules by generative arti
 ======
 
 
-.. image:: https://img.shields.io/pypi/v/gdb_ml.svg
-        :target: https://pypi.python.org/pypi/gdb_ml
-
 .. image:: https://readthedocs.org/projects/gdb-ml/badge/?version=latest
         :target: https://gdb-ml.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
