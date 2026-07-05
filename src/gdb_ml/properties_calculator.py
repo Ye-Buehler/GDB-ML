@@ -370,7 +370,6 @@ class PropertiesCalculator:
         for bond in mol.GetBonds():
             bondtype = bond.GetBondType()
             if bondtype == 2: # aromatic bond cannot be 2
-                #print("It is a double bond")
                 mol_begin=bond.GetBeginAtomIdx()
                 mol_end=bond.GetEndAtomIdx()
                 bond_a=mol.GetAtomWithIdx(mol_begin).GetSymbol()
