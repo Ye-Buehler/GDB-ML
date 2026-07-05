@@ -99,8 +99,15 @@ require extra packages. You can install them with:
 
 .. code-block:: bash
 
-    # Activate environment
-    conda activate opennmt
+    # Concatenate split files into manuscript-style filenames
+    cat transformer/gdb20_data/shuffled_train_keys_part_*_canonical_concatenated_tokenized.txt \
+        > transformer/gdb20_data/src_train.txt
+    cat transformer/gdb20_data/shuffled_train_values_part_*_canonical_concatenated_tokenized.txt \
+        > transformer/gdb20_data/tgt_train.txt
+    cat transformer/gdb20_data/shuffled_val_keys_part_*_canonical_concatenated_tokenized.txt \
+        > transformer/gdb20_data/src_val.txt
+    cat transformer/gdb20_data/shuffled_val_values_part_*_canonical_concatenated_tokenized.txt \
+        > transformer/gdb20_data/tgt_val.txt
 
     # Define variables
     dataset="test36"
@@ -118,10 +125,10 @@ require extra packages. You can install them with:
 
     # Run preprocessing
     python preprocess.py \
-        -train_src data/${dataset}/shuffled_train_keys_canonical_concatenated_tokenized.txt \
-        -train_tgt data/${dataset}/shuffled_train_values_canonical_concatenated_tokenized.txt \
-        -valid_src data/${dataset}/shuffled_val_keys_canonical_concatenated_tokenized.txt \
-        -valid_tgt data/${dataset}/shuffled_val_values_canonical_concatenated_tokenized.txt \
+        -train_src data/${dataset}/src_train.txt \
+        -train_tgt data/${dataset}/tgt_train.txt \
+        -valid_src data/${dataset}/src_val.txt \
+        -valid_tgt data/${dataset}/tgt_val.txt \
         -save_data data/voc_${experiment}/Preprocessed \
         -src_seq_length 3000 -tgt_seq_length 3000 \
         -src_vocab_size 3000 -tgt_vocab_size 3000 \
