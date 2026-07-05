@@ -3,10 +3,6 @@ Sampling a GDB-20 database of 32 trillion drug-like molecules by generative arti
 ======
 
 
-.. image:: https://readthedocs.org/projects/gdb-ml/badge/?version=latest
-        :target: https://gdb-ml.readthedocs.io/en/latest/?version=latest
-        :alt: Documentation Status
-
 Thank you for your interest in this repository, which complements the publication 
 "`Sampling a GDB-20 database of 32 trillion drug-like molecules by generative artificial intelligence <https://chemrxiv.org/doi/full/10.26434/chemrxiv.15000288/v1>`_".
 
