@@ -209,6 +209,7 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 ``JAVA_HOME`` is set before running scripts that use PySpark.
 
 
+
 **(1) Create a Conda environment with the provided `.yaml` file and activate it:**
 
 .. code-block:: bash
