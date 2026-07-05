@@ -515,5 +515,6 @@ workflows from the released intermediate files. It includes:
   ``generative_models/gdb20_models/``.
 
 This repository does not support regenerating the graph-selection step from those
-earliest intermediate objects. However, to improve transparency, this document describes 
-the graph-selection logic implemented in ``src/gdb_ml/graph_mapping.py``.
+earliest intermediate objects. The graph-selection procedure is explained in the manuscript. 
+However, to improve transparency, this document additionally describes 
+the corresponding implementation in ``src/gdb_ml/graph_mapping.py``.
