@@ -75,10 +75,6 @@ class DataProcessor:
         # Convert the processed data into a pandas DataFrame
         df = pd.DataFrame(data, columns = COLUMN_NAME_OUTPUT)
         return df
-        # "['C', 'C', 'C', '1', 'C', '2', 'C', '3', 'C', 'C', '3', 'C', '1', 'C', '2', '(', 'C', '#', 'N', ')', 'C', '#',--> bad line"
-        # df = pd.read_csv(FILE_PATH_READ, sep='\t', skip_blank_lines = False, error_bad_lines=True, warn_bad_lines=True)
-        # print(df.shape) 
-
 
     # TODO: Remove the lines containing dots:
     def remove_dot_lines(df, COLUMN_NAME_TREAT):
@@ -149,12 +145,10 @@ class DataProcessor:
                 iteration += 1
                 if iteration == 1:
                     df = pd.read_csv(FOLDER_PATH + filename, sep=SEPRATOR, names=COLUMN_NAME_INPUT)
-                    #print("basis lenght = " + str(len(df)))
                     row_count += len(df)
 
                 if iteration != 1:
                     df2 = pd.read_csv(FOLDER_PATH + filename, sep=SEPRATOR,names=COLUMN_NAME_INPUT)
-                    #print("added lenght = " + str(len(df2)))
                     df = pd.concat([df, df2], axis=0, ignore_index=True)
                     row_count += len(df2)
 
