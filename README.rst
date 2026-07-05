@@ -66,11 +66,6 @@ Transformer Examples:
 
 **(1) OpenNMT-py Installation:**
 
-OpenNMT-py requires:
-
-* Python >= 3.8
-* PyTorch >= 2.0, < 2.2
-
 Install OpenNMT-py from pip:
 
 .. code-block:: bash
