@@ -239,11 +239,7 @@ class PropertiesCalculator:
         # Get the number of rings and their sizes
         ring_list = []
         for ring in mol.OBMol.GetSSSR():
-            #print(ring)
             ring_list.append(ring)
-
-        # Print the ring sizes
-        #print("Ring list:", ring_list)
 
         atom_ring_count = {}
         # Iterate over the rings
@@ -280,11 +276,9 @@ class PropertiesCalculator:
         
         # Check if the list is empty
         if not small_ring_list:
-            #print("The small_ring_list is empty.")
             return False
 
         else:
-            #print("The small_ring_list  is not empty.")
             return True
     
     
@@ -312,32 +306,25 @@ class PropertiesCalculator:
             if bond.IsInRing() == True:
                 
                 if atom1.GetIsAromatic() == False or atom2.GetIsAromatic() == False:
-                    #print(symbol1, symbol2)
                     
                     if symbol1 == 'N' and symbol2 == 'O':
-                        #print ('find a NO', symbol1, symbol2)
                         return True
 
                     elif symbol1 == 'O' and symbol2 == 'N':
-                        #print ('find a ON', symbol1, symbol2)
                         return True
 
                     elif symbol1 == 'N' and symbol2 == 'N':
-                        #print ('find a NN', symbol1, symbol2)
                         return True
                     
             elif bond.IsInRing() == False:
 
                 if symbol1 == 'N' and symbol2 == 'O':
-                    #print ('find a NO', symbol1, symbol2)
                     return True
 
                 elif symbol1 == 'O' and symbol2 == 'N':
-                    #print ('find a ON', symbol1, symbol2)
                     return True
 
                 elif symbol1 == 'N' and symbol2 == 'N':
-                    #print ('find a NN', symbol1, symbol2)
                     return True
         return False
     
@@ -348,17 +335,14 @@ class PropertiesCalculator:
         ringinfo = mol.GetRingInfo()
         for ring in ringinfo.AtomRings():
             if len(ring) == 3:
-                #print(ring)
                 idx1 = ring[0]
                 idx2 = ring[1]
                 idx3 = ring[2]
-                #print(idx1,idx2,idx3)
 
                 atom1=mol.GetAtomWithIdx(idx1).GetSymbol()
                 atom2=mol.GetAtomWithIdx(idx2).GetSymbol()
                 atom3=mol.GetAtomWithIdx(idx3).GetSymbol()
                 three_member_ring = atom1, atom2, atom3
-                #print(three_member_ring)
                 if 'N' in three_member_ring:
                     return True
         return False
@@ -391,19 +375,13 @@ class PropertiesCalculator:
                 mol_end=bond.GetEndAtomIdx()
                 bond_a=mol.GetAtomWithIdx(mol_begin).GetSymbol()
                 bond_b=mol.GetAtomWithIdx(mol_end).GetSymbol()
-                #print(bond_a)
-                #print(bond_b)
                 if bond_a.lower() == 'c' and bond_b.lower() == 'o':
-                    #print('find a desired one with C=O bond!')
                     continue
                 elif bond_a.lower() == 'o' and bond_b.lower() == 'c':
-                    #print('find a desired one with O=C bond!')
                     continue
                 else:
-                    #print("find a undesired one with", bond_a, bond_b)
                     return False
             else:
-                #print('find a desired one!')
                 continue
         return True
     
