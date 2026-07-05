@@ -179,7 +179,7 @@ Generative Models Examples:
 
 .. code-block:: bash
 
-    conda env create -f environment-py39.yaml
+    conda env create -f generative_models/environment-py39.yaml
     conda activate reinvent-gdb13-py39
 
 **(2) Create a working directory:**
