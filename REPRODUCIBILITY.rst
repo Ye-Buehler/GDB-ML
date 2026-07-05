@@ -501,15 +501,3 @@ Option meanings for ``sample_from_model.py``:
    * - ``--use-gzip``
      - Compress the output file with gzip.
 
-
-Reproducibility Boundary
-========================
-
-This repository contains the source code, scripts, released tokenized
-transformer files, generative-model input files, and trained model artifacts
-needed to rerun the published workflows from the released intermediate data.
-Regenerating every intermediate object before graph selection additionally
-requires the graph summary table and graph-to-molecule dictionaries described
-above. These inputs should be made available with the repository or with the
-linked Zenodo data release for full regeneration from the earliest graph
-selection stage.
