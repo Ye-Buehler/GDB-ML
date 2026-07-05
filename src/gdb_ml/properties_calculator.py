@@ -6,13 +6,8 @@ from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDConfig
-from rdkit.Chem import QED
-from rdkit.Chem import Crippen
-from rdkit.Chem.Descriptors import qed
 from rdkit.Chem import AllChem
 
-import openbabel as ob
-from openbabel import pybel
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
 import sascorer
 
