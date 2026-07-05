@@ -17,18 +17,3 @@ You can either clone the public repository:
     $ cd GDB-ML
     $ python -m pip install -e .
 
-Or download the `tarball`_:
-
-.. code-block:: console
-
-    $ curl -OJL https://github.com/Ye-Buehler/gdb_ml/tarball/master
-
-Once you have a copy of the source, you can install it with:
-
-.. code-block:: console
-
-    $ python setup.py install
-
-
-.. _Github repo: https://github.com/Ye-Buehler/gdb_ml
-.. _tarball: https://github.com/Ye-Buehler/gdb_ml/tarball/master
