@@ -7,6 +7,7 @@ name = "gdb_ml"
 version = "0.1.0"
 description = "GDB-ML contains all the utils for a GDB machine learning based project."
 readme = "README.rst"
+requires-python = ">=3.9"
 authors = [
   {name = "Ye Buehler", email = "ye.buehler@outlook.com"}
 ]
@@ -18,7 +19,12 @@ classifiers = [
 ]
 license = {text = "MIT license"}
 dependencies = [
-  
+    "numpy",
+    "openbabel-wheel",
+    "pandarallel",
+    "pandas",
+    "rdkit",
+    "tqdm",
 ]
 
 [project.optional-dependencies]
@@ -31,12 +37,15 @@ dev = [
 
 [project.urls]
 
-bugs = "https://github.com/Ye-Buehler/gdb_ml/issues"
-changelog = "https://github.com/Ye-Buehler/gdb_ml/blob/master/changelog.md"
-homepage = "https://github.com/Ye-Buehler/gdb_ml"
+bugs = "https://github.com/Ye-Buehler/GDB-ML/issues"
+changelog = "https://github.com/Ye-Buehler/GDB-ML/blob/main/HISTORY.rst"
+homepage = "https://github.com/Ye-Buehler/GDB-ML"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.package-data]
 "*" = ["*.*"]
@@ -60,4 +69,3 @@ warn_no_return = true
 module = "tests.*"
 allow_untyped_defs = true
 disable_error_code = "attr-defined"
-
