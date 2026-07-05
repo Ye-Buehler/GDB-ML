@@ -12,7 +12,9 @@ To install GDB-ML, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install gdb_ml
+    $ git clone https://github.com/Ye-Buehler/GDB-ML.git
+    $ cd GDB-ML
+    $ python -m pip install -e .
 
 This is the preferred method to install GDB-ML, as it will always install the most recent stable release.
 
