@@ -7,6 +7,7 @@ from rdkit.Chem import Descriptors
 from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDConfig
 from rdkit.Chem import AllChem
+from rdkit.Chem import QED
 
 sys.path.append(os.path.join(RDConfig.RDContribDir, 'SA_Score'))
 import sascorer
