@@ -64,8 +64,7 @@ General Usage:
 Transformer Examples:
 -----------------------
 
-OpenNMT-py Installation:
-~~~~~~~~~~~~~~~~~~~~~~~~
+**(1) OpenNMT-py Installation:**
 
 OpenNMT-py requires:
 
@@ -95,13 +94,13 @@ require extra packages. You can install them with:
 
     pip install -r requirements.opt.txt
 
-**(1) Follow the pipeline and tokenize the SMILES:**
+**(2) Follow the pipeline and tokenize the SMILES:**
 
 .. code-block:: bash
 
    # See pipeline.ipynb
 
-**(2) Preprocess the data:**
+**(3) Preprocess the data:**
 
 .. code-block:: bash
 
@@ -134,7 +133,7 @@ require extra packages. You can install them with:
         -share_vocab -lower
 
 
-**(3) Train the transformer model:**
+**(4) Train the transformer model:**
 
 .. code-block:: bash
 
@@ -184,7 +183,7 @@ require extra packages. You can install them with:
         -tensorboard_log_dir experiments/Tensorboard/${experiment}/
 
 
-**(4) Molecular generation:**
+**(5) Molecular generation:**
 
 .. code-block:: bash
 
