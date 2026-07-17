@@ -1,5 +1,5 @@
 ======
-Sampling a GDB-20 database of 32 trillion drug-like molecules by generative artificial intelligence 
+Sampling a Trillion-Sized GDB-20 Database of Drug-Like Molecules by Generative Artificial Intelligence
 ======
 
 
