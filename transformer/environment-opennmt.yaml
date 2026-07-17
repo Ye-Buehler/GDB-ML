@@ -1,0 +1,20 @@
+# Keep this separate from gdb20: the workflows require different PyTorch versions.
+name: opennmt
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10
+  - numpy<2
+  - pyyaml
+  - six
+  - future
+  - tqdm
+  - configargparse
+  - tensorboard
+  - flask
+  - waitress
+  - pip
+  - pip:
+      - torch==1.13.1
+      - torchtext==0.4.0
