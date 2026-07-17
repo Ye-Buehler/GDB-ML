@@ -229,8 +229,8 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
 .. code-block:: bash
 
-    ./create_randomized_smiles.py -i generative_models/gdb20_data/1M_node18_train.txt -o node18_randomized/training -n 100
-    ./create_randomized_smiles.py -i generative_models/gdb20_data/1M_node18_validation.txt -o node18_randomized/validation -n 100
+    ./generative_models/create_randomized_smiles.py -i generative_models/gdb20_data/1M_node18_train.txt -o node18_randomized/training -n 100
+    ./generative_models/create_randomized_smiles.py -i generative_models/gdb20_data/1M_node18_validation.txt -o node18_randomized/validation -n 100
 
 **(4) Create a blank model file:**
 
