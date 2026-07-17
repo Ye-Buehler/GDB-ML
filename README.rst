@@ -236,13 +236,13 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
 .. code-block:: bash
 
-    ./create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
+    ./generative_models/create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
 
 **(5) Train the generative model with specified parameters:**
 
 .. code-block:: bash
 
-    ./train_model.py \
+    ./generative_models/train_model.py \
         -i node18_randomized/models/model.empty \
         -o node18_randomized/models/model.trained \
         -s node18_randomized/training \
@@ -255,7 +255,7 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
 .. code-block:: bash
 
-    ./sample_from_model.py \
+    ./generative_models/sample_from_model.py \
         -m node18_randomized/models/model.trained.100 \
         -n 1000000 \
         --with-nll \
