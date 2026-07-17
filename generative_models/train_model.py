@@ -10,9 +10,11 @@ import os.path
 import glob
 import itertools as it
 
+import sys
 import numpy as np
 
-
+from tensorboard.compat import tensorflow_stub
+sys.modules["tensorflow"] = tensorflow_stub
 
 import collect_stats_from_model as csfm
 
