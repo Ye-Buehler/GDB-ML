@@ -81,13 +81,13 @@ Transformer Examples:
 **(3) OpenNMT-py Installation:**
 
 .. code-block:: bash
+
     conda env create -f GDB-ML-main_working/transformer/environment-opennmt.yaml
     conda activate opennmt
     git clone https://github.com/reymond-group/OpenNMT-py.git
     cd OpenNMT-py
     git checkout Enzymatic_Transformer
     pip install -e .
-
 
 **(4) Preprocess the data:**
 
