@@ -1,5 +1,4 @@
 # Unified environment for the generative workflow and pipeline notebook.
-# Versions from generative_models/environment-py39.yaml take precedence.
 name: gdb20
 channels:
   - conda-forge
