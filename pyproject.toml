@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gdb_ml"
+version = "0.1.0"
+description = "Utilities for the GDB-20 machine-learning and molecular-generation workflows."
+readme = "README.rst"
+requires-python = ">=3.10,<3.11"
+authors = [
+  {name = "Ye Buehler", email = "ye.buehler@outlook.com"}
+]
+maintainers = [
+  {name = "Ye Buehler", email = "ye.buehler@outlook.com"}
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering :: Chemistry",
+]
+license = {file = "LICENSE"}
+# These are the direct imports of src/gdb_ml. The complete pipeline,
+# transformer, and generative workflows must use the supplied Conda YAML files.
+dependencies = [
+  "numpy>=1.26,<2",
+  "openbabel-wheel>=3.1.1,<3.2",
+  "pandarallel>=1.6.5,<2",
+  "pandas>=2.2.3,<3",
+  "rdkit>=2024.9.5,<2025",
+  "tqdm>=4.67.1,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage",  # testing
+    "mypy",  # linting
+    "pytest",  # testing
+    "ruff"  # linting
+]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/Ye-Buehler/GDB-ML/issues"
+Changelog = "https://github.com/Ye-Buehler/GDB-ML/blob/main/HISTORY.rst"
+Homepage = "https://github.com/Ye-Buehler/GDB-ML"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
+# Mypy
+# ----
+
+[tool.mypy]
+files = "."
+
+# Use strict defaults
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[[tool.mypy.overrides]]
+# Don't require test functions to include types
+module = "tests.*"
+allow_untyped_defs = true
+disable_error_code = "attr-defined"
