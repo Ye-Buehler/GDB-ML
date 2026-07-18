@@ -10,7 +10,7 @@ of this repository.
 Software Environments
 =====================
 
-Pipeline and generative models
+Transformer pipeline and generative models
 ------------------------------
 
 ``environment-gdb20.yaml`` is the canonical environment for the pipeline
@@ -58,14 +58,8 @@ The released generative training and sampling code contains explicit
 ``.cuda()`` calls and therefore requires a CUDA-enabled PyTorch build unless
 those calls are replaced by device-aware CPU/MPS handling.
 
-``train_model.py`` intentionally configures TensorBoard to use its standalone
-``tensorflow_stub`` compatibility API before importing the statistics module.
-This preserves TensorBoard event logging without loading the full TensorFlow
-and PyTorch native runtimes into the same process. TensorFlow remains installed
-in ``gdb20`` for workflows that import it separately.
 
-
-Transformer
+Transformer training and generation
 -----------
 
 The transformer workflow uses the legacy ``Enzymatic_Transformer`` OpenNMT-py
