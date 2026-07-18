@@ -69,12 +69,12 @@ Transformer Examples:
 .. code-block:: bash
 
     conda env create -f environment-gdb20.yaml
+    conda activate gdb20
 
 **(2) Follow the pipeline and tokenize the SMILES:**
 
 .. code-block:: bash
-
-   conda activate gdb20
+   
    # See transformer/pipeline.ipynb
    
    
