@@ -256,7 +256,8 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 Note:
 ~~~~~~~~~~~~~~~~~~
 
-The generative training and sampling steps below require an NVIDIA GPU with CUDA.
+Steps 5 and 6 require an NVIDIA GPU with CUDA. If using a GPU, replace
+``pytorch=2.7.0`` with ``pytorch-gpu=2.7.0`` in ``environment-gdb20.yaml`` before creating the environment.
 
 **(5) Train the generative model with specified parameters:**
 
