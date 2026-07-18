@@ -10,7 +10,7 @@ For a step-by-step map from the manuscript workflow to the repository files,
 software environments, graph-selection procedure, and executable scripts, see
 `REPRODUCIBILITY.rst <REPRODUCIBILITY.rst>`_.
 
-.. image:: https://github.com/Ye-Buehler/GDB-ML/blob/main/docs/GA.jpg
+.. image:: docs/GA.jpg
    :alt: GA
    :align: center
    :width: 400px
@@ -88,6 +88,7 @@ Transformer Examples:
     cd OpenNMT-py
     git checkout Enzymatic_Transformer
     pip install -e .
+    cd ..
 
 **(4) Preprocess the data:**
 
@@ -252,6 +253,11 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
     ./create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
 
+Note:
+~~~~~~~~~~~~~~~~~~
+
+The generative training and sampling steps below require an NVIDIA GPU with CUDA.
+
 **(5) Train the generative model with specified parameters:**
 
 .. code-block:: bash
@@ -269,8 +275,10 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
 .. code-block:: bash
 
+    # To use the bundled pretrained model instead, replace the -m path below with:
+    # gdb20_models/model.trained.node18
     ./sample_from_model.py \
-        -m node18_randomized/models/model.trained.node18 \
+        -m node18_randomized/models/model.trained.100 \
         -n 1000000 \
         --with-nll \
         -o output.txt
