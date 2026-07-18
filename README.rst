@@ -220,7 +220,11 @@ System Dependency:
 PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 ``JAVA_HOME`` is set before running scripts that use PySpark.
 
+Note:
+~~~~~~~~~~~~~~~~~~
 
+Steps 5 and 6 require an NVIDIA GPU with CUDA. If using a GPU, replace
+``pytorch=2.7.0`` with ``pytorch-gpu=2.7.0`` in ``environment-gdb20.yaml`` before creating the environment.
 
 **(1) Activate the Conda environment:**
 
@@ -253,11 +257,6 @@ PySpark requires Java. Please install a JDK, e.g. JDK 11 or 17, and make sure
 
     ./create_model.py -i node18_randomized/training/001.smi -o node18_randomized/models/model.empty
 
-Note:
-~~~~~~~~~~~~~~~~~~
-
-Steps 5 and 6 require an NVIDIA GPU with CUDA. If using a GPU, replace
-``pytorch=2.7.0`` with ``pytorch-gpu=2.7.0`` in ``environment-gdb20.yaml`` before creating the environment.
 
 **(5) Train the generative model with specified parameters:**
 
