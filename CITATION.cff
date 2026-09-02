@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "GDB-ML"
+abstract: >-
+  Code, models, workflows, and reproducibility documentation supporting the
+  generation and analysis of the GDB-20 molecular database.
+type: software
+version: 1.0.0
+date-released: 2026-09-02
+authors:
+  - family-names: "Buehler"
+    given-names: "Ye"
+    affiliation: "University of Bern"
+  - family-names: "Javor"
+    given-names: "Sacha"
+    affiliation: "University of Bern"
+  - family-names: "Reymond"
+    given-names: "Jean-Louis"
+    affiliation: "University of Bern"
+repository-code: "https://github.com/Ye-Buehler/GDB-ML"
+license: MIT
+keywords:
+  - cheminformatics
+  - chemical space
+  - molecular generation
+  - generative artificial intelligence
+  - GDB-20
