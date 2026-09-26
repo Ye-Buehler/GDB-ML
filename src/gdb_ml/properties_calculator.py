@@ -475,7 +475,7 @@ class PropertiesCalculator:
         return pass_check
     
 
-    # TODO: Check undesired functional group
+    # TODO: Check undesired functional groups and structures
     def undesired_FG_check(self, smiles):
         pass_check = True
         
@@ -514,7 +514,7 @@ class PropertiesCalculator:
         return pass_check
     
 
-    # TODO: Check undesired functional group
+    # TODO: Check undesired functional groups and structures
     def undesired_FG_check_print(self, smiles):
         pass_check = True
         
@@ -586,7 +586,7 @@ class PropertiesCalculator:
 
 
 
-    # TODO: Check undesired functional group
+    # TODO: Check undesired functional groups and structures
     def undesired_FG_details(self, FILE_PATH_READ, FILE_PATH_SAVE_PASS, FILE_PATH_SAVE_FAILED):
         df = pd.read_csv(FILE_PATH_READ, names=["SMILES", "Log Prob"], sep="\t")
 
