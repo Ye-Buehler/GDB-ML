@@ -13,25 +13,23 @@ The repository components are connected in the following order:
 
 1. Create and activate the required Conda environment.
 
-2. Prepare and tokenize the input data following transformer/pipeline.ipynb.
+2. Install the bundled OpenNMT-py implementation from transformer/onmt/.
 
-3. Install the bundled OpenNMT-py implementation from transformer/onmt/.
-
-4. Concatenate the split files in ``transformer/gdb20_data/`` to form
+3. Concatenate the split files in ``transformer/gdb20_data/`` to form
    ``src_train.txt``, ``tgt_train.txt``, ``src_val.txt`` and
    ``tgt_val.txt``.
 
-5. Run ``transformer/preprocess.py`` with the settings given above to
+4. Run ``transformer/preprocess.py`` with the settings given above to
    produce the OpenNMT preprocessed training and validation data.
 
-6. Run ``transformer/train.py`` or load the released checkpoint from
+5. Run ``transformer/train.py`` or load the released checkpoint from
    ``transformer/gdb20_model/``, and then use ``transformer/translate.py``
    with the specified beam-search settings to generate molecular SMILES
    from the source graphs.
 
-7. Detokenize the transformer output, retain RDKit-valid canonical SMILES,
-   restrict the molecules to the target heavy-atom-count range and remove
-   duplicate structures.
+6. Detokenize the transformer output following transformer/pipeline.ipynb. 
+
+7. Retain RDKit-valid canonical SMILES, restrict the molecules to the target heavy-atom-count range and remove duplicate structures.
 
 8. For the RNN workflow, use the five HAC-stratified training and validation
    datasets supplied in ``generative_models/gdb20_data/``. Randomize their SMILES with
