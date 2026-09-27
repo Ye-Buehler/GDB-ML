@@ -13,7 +13,7 @@ The repository components are connected in the following order:
 
 1. Create and activate the required Conda environment.
 
-2. Install the bundled OpenNMT-py implementation from transformer/onmt/.
+2. Install the bundled OpenNMT-py implementation from ``transformer/onmt/``.
 
 3. Concatenate the split files in ``transformer/gdb20_data/`` to form
    ``src_train.txt``, ``tgt_train.txt``, ``src_val.txt`` and
@@ -27,7 +27,7 @@ The repository components are connected in the following order:
    with the specified beam-search settings to generate molecular SMILES
    from the source graphs.
 
-6. Detokenize the transformer output following transformer/pipeline.ipynb. 
+6. Detokenize the transformer output following ``transformer/pipeline.ipynb``. 
 
 7. Retain RDKit-valid canonical SMILES, restrict the molecules to the target heavy-atom-count range and remove duplicate structures.
 
