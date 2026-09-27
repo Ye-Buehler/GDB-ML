@@ -40,7 +40,6 @@ Main Codes and Files for GDB-20 Machine-Learning-Based Project:
     |   └── gdb_ml/
     |      ├── chem_utils.py
     |      ├── data_processor.py
-    |      ├── graph_mapping.py
     |      └── properties_calculator.py
     ├── transformer/
     |      ├── pipeline.ipynb
