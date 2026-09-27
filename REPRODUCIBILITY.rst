@@ -4,41 +4,44 @@ Reproducibility
 
 This document describes how the files and scripts in this repository map to the
 workflow described in the manuscript. All paths below are relative to the root
-of this repository.
+of this repository. We do not claim that the dependency versions specified in this repository exactly reconstruct the original study environment; they define a precise environment for future reproductions of the released workflow.
 
 End-to-End Execution Sequence
 =====================
 
 The repository components are connected in the following order:
 
-1. Concatenate the split files in ``transformer/gdb20_data/`` to form
+1. Create and activate the required Conda environment.
+
+2. Prepare and tokenize the input data following transformer/pipeline.ipynb.
+
+3. Install the bundled OpenNMT-py implementation from transformer/onmt/.
+
+4. Concatenate the split files in ``transformer/gdb20_data/`` to form
    ``src_train.txt``, ``tgt_train.txt``, ``src_val.txt`` and
    ``tgt_val.txt``.
 
-2. Run ``transformer/preprocess.py`` with the settings given above to
+5. Run ``transformer/preprocess.py`` with the settings given above to
    produce the OpenNMT preprocessed training and validation data.
 
-3. Run ``transformer/train.py`` or load the released checkpoint from
+6. Run ``transformer/train.py`` or load the released checkpoint from
    ``transformer/gdb20_model/``, and then use ``transformer/translate.py``
    with the specified beam-search settings to generate molecular SMILES
    from the source graphs.
 
-4. Detokenize the transformer output, retain RDKit-valid canonical SMILES,
+7. Detokenize the transformer output, retain RDKit-valid canonical SMILES,
    restrict the molecules to the target heavy-atom-count range and remove
    duplicate structures.
 
-5. For the RNN branch, use the five HAC-stratified training and validation
+8. For the RNN workflow, use the five HAC-stratified training and validation
    datasets supplied in ``generative_models/gdb20_data/``. Randomize their SMILES with
    ``create_randomized_smiles.py``, initialize and train the models with
    ``create_model.py`` and ``train_model.py``, or use the released
    checkpoints in ``generative_models/gdb20_models/``.
 
-6. Generate RNN SMILES with ``sample_from_model.py`` and apply the same
-   validity, canonicalization, heavy-atom-count and within-model
-   deduplication procedures.
+9. Generate RNN SMILES with ``sample_from_model.py`` and apply the same validity, canonicalization, heavy-atom-count and within-model deduplication procedures.
 
-7. Combine the unique transformer and RNN outputs and remove structures
-   occurring in both outputs. The resulting union constitutes GDB-20s.
+10. Combine the unique transformer and RNN outputs and remove structures occurring in both outputs. The resulting union constitutes GDB-20s.
 
 Note that this procedure can generate a new molecular collection using the same methodology but does not exactly regenerate the released 12-billion-molecule GDB-20s collection. The exact released GDB-20s collection is provided separately through the Zenodo records linked in ``README.rst``.
 
@@ -60,17 +63,6 @@ Create and activate the environment from the repository root:
 
     conda env create -f environment-gdb20.yaml
     conda activate gdb20
-
-The source-layout package can then be installed in editable mode. ``--no-deps``
-keeps the Conda-resolved packages from ``environment-gdb20.yaml`` authoritative:
-
-.. code-block:: bash
-
-    python -m pip install --no-deps -e .
-
-This editable installation is optional when ``src`` is added to ``sys.path``
-by the pipeline notebook, but it makes ``gdb_ml`` importable from any working
-directory in the active environment.
 
 ``create_randomized_smiles.py`` uses PySpark and therefore requires Java.
 Install a JDK after activating ``gdb20`` and verify it before running that
@@ -98,24 +90,25 @@ those calls are replaced by device-aware CPU/MPS handling.
 Transformer training and generation
 -----------
 
-The transformer workflow uses the legacy ``Enzymatic_Transformer`` OpenNMT-py
-fork and must be kept separate from ``gdb20`` because it requires an older
-PyTorch stack. Create the pinned environment supplied with this repository,
-then install the matching fork:
+The transformer workflow must be kept separate from the gdb20 environment 
+because it requires an older PyTorch stack. 
+Create the pinned environment supplied with this repository, 
+and install the included OpenNMT-py implementation:
 
 .. code-block:: bash
 
     conda env create -f transformer/environment-opennmt.yaml
     conda activate opennmt
-    git clone https://github.com/reymond-group/OpenNMT-py.git
-    cd OpenNMT-py
-    git checkout Enzymatic_Transformer
-    python -m pip install -e .
+    git clone https://github.com/reymond-group/GDB-ML.git
+    cd GDB-ML
+    git checkout v1.0.1
+    pip install -e ./transformer/onmt
+    cd ../..
 
-The repository's transformer commands and option names correspond to this
-fork, not to current OpenNMT-py releases. On a CPU-only machine, omit
-``-gpu_ranks 0`` from the training command in ``README.rst``.
-
+The repository's transformer commands and option names correspond to 
+the bundled OpenNMT-py implementation in transformer/onmt 
+and may differ from current OpenNMT-py releases. 
+On a CPU-only machine, omit -gpu_ranks 0 from the training command in README.rst.
 
 Repository File Map
 ===================
