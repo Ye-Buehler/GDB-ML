@@ -67,8 +67,22 @@ Transformer Examples:
 
 .. code-block:: bash
 
-    conda env create -f environment-gdb20.yaml
-    conda activate gdb20
+   # Specific versions used:
+
+   - Python: 3.10.20
+   - numpy: 1.26.0
+   - pandas: 2.2.3
+   - rdkit: 2024.09.5
+   - openbabel: 3.1.1
+   - pandarallel: 1.6.5
+   - pytorch: 2.7.0
+   - torchvision: 0.22.0
+   - torchaudio: 2.7.0
+
+.. code-block:: bash
+
+   conda env create -f environment-gdb20.yaml
+   conda activate gdb20
 
 **(2) Follow the pipeline and tokenize the SMILES:**
 
@@ -81,13 +95,22 @@ Transformer Examples:
 
 .. code-block:: bash
 
+   # Specific versions used:
+
+   - Python: 3.10.20
+   - PyTorch: 1.13.1
+   - torchtext: 0.4.0
+   - OpenNMT-py: 1.1.1
+
+.. code-block:: bash
+
     conda env create -f transformer/environment-opennmt.yaml
     conda activate opennmt
-    git clone https://github.com/reymond-group/OpenNMT-py.git
-    cd OpenNMT-py
-    git checkout Enzymatic_Transformer
-    pip install -e .
-    cd ..
+    git clone https://github.com/reymond-group/GDB-ML.git
+    cd GDB-ML
+    git checkout v1.0.1
+    pip install -e ./transformer/onmt
+    cd ../..
 
 **(4) Preprocess the data:**
 
