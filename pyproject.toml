@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gdb_ml"
-version = "1.0.0"
+version = "1.0.1"
 description = "Utilities for the GDB-20 machine-learning and molecular-generation workflows."
 readme = "README.rst"
 requires-python = ">=3.10,<3.11"
