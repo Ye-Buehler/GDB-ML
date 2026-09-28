@@ -69,7 +69,7 @@ Transformer Examples:
 
    # Specific versions used:
 
-   - Python: 3.10.20
+   - Python: 3.10
    - numpy: 1.26.0
    - pandas: 2.2.3
    - rdkit: 2024.09.5
@@ -97,7 +97,7 @@ Transformer Examples:
 
    # Specific versions used:
 
-   - Python: 3.10.21
+   - Python: 3.10
    - PyTorch: 1.13.1
    - torchtext: 0.4.0
    - OpenNMT-py: 1.1.1
