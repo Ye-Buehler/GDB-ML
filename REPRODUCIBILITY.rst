@@ -101,7 +101,6 @@ and install the included OpenNMT-py implementation:
     cd GDB-ML
     git checkout v1.0.1
     pip install -e ./transformer
-    cd ..
 
 The repository's transformer commands and option names correspond to 
 the bundled OpenNMT-py implementation in transformer/onmt 
