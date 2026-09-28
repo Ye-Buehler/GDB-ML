@@ -97,7 +97,7 @@ Transformer Examples:
 
    # Specific versions used:
 
-   - Python: 3.10.20
+   - Python: 3.10.21
    - PyTorch: 1.13.1
    - torchtext: 0.4.0
    - OpenNMT-py: 1.1.1
