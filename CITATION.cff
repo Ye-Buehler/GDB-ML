@@ -5,8 +5,8 @@ abstract: >-
   Code, models, workflows, and reproducibility documentation supporting the
   generation and analysis of the GDB-20 molecular database.
 type: software
-version: 1.0.0
-date-released: 2026-09-02
+version: 1.0.1
+date-released: 2026-09-28
 authors:
   - family-names: "Buehler"
     given-names: "Ye"
