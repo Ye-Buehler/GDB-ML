@@ -109,8 +109,8 @@ Transformer Examples:
     git clone https://github.com/reymond-group/GDB-ML.git
     cd GDB-ML
     git checkout v1.0.1
-    pip install -e ./transformer/onmt
-    cd ../..
+    pip install -e ./transformer
+    cd ..
 
 **(4) Preprocess the data:**
 
